@@ -10,4 +10,33 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <developers>
+        <developer>
+            <id>Walter Flores Paz</id>
+            <email>walterefpaz@hotmail.com</email>
+            <organization>Freelancer</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>-6:00</timezone>
+        </developer>
+        <developer>
+            <id>nombre</id>
+            <email>correo</email>
+            <organization>Freelancer</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>-6:00</timezone>
+        </developer>
+        <developer>
+            <id>nombre</id>
+            <email>correo</email>
+            <organization>Freelancer</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>-6:00</timezone>
+        </developer>
+    </developers>
 </project>
