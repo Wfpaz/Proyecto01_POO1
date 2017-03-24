@@ -159,9 +159,9 @@ public class CtrlMunicipios {
         
     }
     
-     public Municipios consUno(int id)
+     public List<Municipios> consUno(int id)
     {
-        Municipios resp = new Municipios();
+        List<Municipios> resp = new ArrayList<>();
         Connection cn =new Conexion().getConn();
         try {
             PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_muni = ?");
@@ -169,7 +169,7 @@ public class CtrlMunicipios {
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp = new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3));
+               resp.add(new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3)));
             }
         } catch (Exception err) 
         {
