@@ -10,13 +10,13 @@ package com.sv.udb.modelo;
  * @author Walter
  */
 public class Denuncias {
-    int codDenu, codTema, codInst, codAuto, edad, numTele;
+    int codDenu, codTema, codInst, codAuto, edad, numTele, viable;
     String fecha, hora, nombVict, genero;
 
     public Denuncias() {
     }
 
-    public Denuncias(int codDenu, int codTema, int codInst, int codAuto, int edad, int numTele, String fecha, String hora, String nombVict, String genero) {
+    public Denuncias(int codDenu, int codTema, int codInst, int codAuto, int edad, int numTele, String fecha, String hora, String nombVict, String genero, int viable) {
         this.codDenu = codDenu;
         this.codTema = codTema;
         this.codInst = codInst;
@@ -27,6 +27,15 @@ public class Denuncias {
         this.hora = hora;
         this.nombVict = nombVict;
         this.genero = genero;
+        this.viable = viable;
+    }
+
+    public int getViable() {
+        return viable;
+    }
+
+    public void setViable(int viable) {
+        this.viable = viable;
     }
 
     public int getCodDenu() {

@@ -5,7 +5,14 @@
  */
 package com.sv.udb.vista;
 
+import com.sv.udb.controlador.DenunciasCtrl;
+import com.sv.udb.modelo.Denuncias;
+import com.sv.udb.modelo.Temas;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,8 +29,11 @@ public class frmDenuncia extends javax.swing.JFrame {
     }
     
     private void fechaHora() {
-        java.util.Date fecha = new Date();
-        lblFechaHora.setText(String.valueOf(fecha));
+        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        
+        lblFechaHora.setText(fecha.format(now) + hora.format(now));
     }
 
     /**
@@ -52,6 +62,7 @@ public class frmDenuncia extends javax.swing.JFrame {
         cmbTipoDenuncia = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cmbAutoridad = new javax.swing.JComboBox<>();
+        txtIdInst = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnGuardarRemitir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -85,6 +96,8 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         jLabel3.setText("Genero");
 
+        txtInstitucion.setEnabled(false);
+
         jLabel4.setText("Denuncia a");
 
         jLabel5.setText("Denuncia por");
@@ -100,6 +113,8 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         cmbAutoridad.setVisible(false);
 
+        txtIdInst.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,44 +122,43 @@ public class frmDenuncia extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(lblFechaHora))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lblVictima)
-                                .addGap(40, 40, 40)
-                                .addComponent(txtVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addComponent(lblFechaHora))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblVictima)
+                        .addGap(40, 40, 40)
+                        .addComponent(txtVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 6, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEdadVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbTipoDenuncia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbAutoridad, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(txtIdInst, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtInstitucion))
+                                .addComponent(cmbTipoDenuncia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbAutoridad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEdadVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +188,8 @@ public class frmDenuncia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(txtIdInst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbAutoridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +200,11 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         btnGuardarRemitir.setText("Guardar");
         btnGuardarRemitir.setVisible(false);
+        btnGuardarRemitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRemitirActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setVisible(false);
@@ -195,8 +215,18 @@ public class frmDenuncia extends javax.swing.JFrame {
         });
 
         btnSoloArchivar.setText("Solo Archivar");
+        btnSoloArchivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoloArchivarActionPerformed(evt);
+            }
+        });
 
         btnTomarContacto.setText("Tomar contacto");
+        btnTomarContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTomarContactoActionPerformed(evt);
+            }
+        });
 
         btnRemitir.setText("Remitir Denuncia");
         btnRemitir.addActionListener(new java.awt.event.ActionListener() {
@@ -295,11 +325,11 @@ public class frmDenuncia extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(49, 49, 49)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,6 +385,103 @@ public class frmDenuncia extends javax.swing.JFrame {
         btnSoloArchivar.setEnabled(true);
         btnTomarContacto.setEnabled(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    
+    private void btnGuardarRemitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRemitirActionPerformed
+        
+        if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbAutoridad.getSelectedItem().equals(-1)) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
+        {
+         try 
+         {
+            Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+//            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+            Denuncias obje = new Denuncias();
+            String genero;
+            if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
+            
+            obje.setNombVict(txtVictima.getText());
+            obje.setCodAuto(objeTema.getIdTema());
+            obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
+            obje.setCodTema(objeTema.getIdTema());
+            obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
+            obje.setFecha(fecha.format(now)); 
+            obje.setHora(hora.format(now));
+            obje.setGenero(genero);
+            obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
+            obje.setViable(1);
+            
+            if(new DenunciasCtrl().guarDenu(obje, "Remitir"))
+            {
+               JOptionPane.showMessageDialog(this, "Datos guardados");
+               this.limpiar();                
+            }
+            else
+            {
+                  JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+            }
+          } 
+          catch (Exception ex) 
+          {
+              JOptionPane.showMessageDialog(this, ex.getMessage());
+          }   
+        }
+        else
+        {
+         JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
+         
+        }
+    }//GEN-LAST:event_btnGuardarRemitirActionPerformed
+
+    private void btnSoloArchivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoloArchivarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSoloArchivarActionPerformed
+
+    private void btnTomarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarContactoActionPerformed
+        if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
+        {
+         try 
+         {
+            Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+//            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+            Denuncias obje = new Denuncias();
+            String genero;
+            if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
+            
+            obje.setNombVict(txtVictima.getText());
+            obje.setCodAuto(0);
+            obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
+            obje.setCodTema(objeTema.getIdTema());
+            obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
+            obje.setFecha(fecha.format(now)); 
+            obje.setHora(hora.format(now));
+            obje.setGenero(genero);
+            obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
+            obje.setViable(1);
+            
+            if(new DenunciasCtrl().guarDenu(obje, "Contactar"))
+            {
+               JOptionPane.showMessageDialog(this, "Datos guardados");
+               this.limpiar();                
+            }
+            else
+            {
+                  JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+            }
+          } 
+          catch (Exception ex) 
+          {
+              JOptionPane.showMessageDialog(this, ex.getMessage());
+          }   
+        }
+        else
+        {
+         JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
+         
+        }
+    }//GEN-LAST:event_btnTomarContactoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,9 +545,14 @@ public class frmDenuncia extends javax.swing.JFrame {
     private javax.swing.JTable tblInstitucion;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtEdadVictima;
+    private javax.swing.JTextField txtIdInst;
     private javax.swing.JTextField txtInstitucion;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtVictima;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
