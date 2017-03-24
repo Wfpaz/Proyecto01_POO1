@@ -21,8 +21,8 @@
             <timezone>-6:00</timezone>
         </developer>
         <developer>
-            <id>nombre</id>
-            <email>correo</email>
+            <id>Oscar Quevedo</id>
+            <email>oscarqp1@gmail.com</email>
             <organization>Freelancer</organization>
             <roles>
                 <role>Java Developer</role>
@@ -39,4 +39,26 @@
             <timezone>-6:00</timezone>
         </developer>
     </developers>
+    
+     <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
 </project>
