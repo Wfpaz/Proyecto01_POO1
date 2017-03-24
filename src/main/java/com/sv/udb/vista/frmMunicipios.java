@@ -25,6 +25,7 @@ public class frmMunicipios extends javax.swing.JFrame {
      */
     public frmMunicipios() {
         initComponents();
+        this.refreshTblMuni(); 
         txtIdMuni.setVisible(false);
         btnEliMuni.setVisible(false);
         btnEditMuni.setVisible(false);
