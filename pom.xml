@@ -30,8 +30,8 @@
             <timezone>-6:00</timezone>
         </developer>
         <developer>
-            <id>nombre</id>
-            <email>correo</email>
+            <id>Luis Chévez</id>
+            <email>luigichevez@gmail.com</email>
             <organization>Freelancer</organization>
             <roles>
                 <role>Java Developer</role>
