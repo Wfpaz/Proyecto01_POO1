@@ -96,6 +96,11 @@ public class frmDepartamentos extends javax.swing.JFrame {
         });
 
         btnLimpiarDep.setText("Limpiar");
+        btnLimpiarDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarDepActionPerformed(evt);
+            }
+        });
 
         btnEliDepa.setText("Eliminar");
         btnEliDepa.addActionListener(new java.awt.event.ActionListener() {
@@ -320,6 +325,10 @@ int fila = this.tblDepa.getSelectedRow();
          JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder eliminarlo");    
         }
     }//GEN-LAST:event_btnEliDepaActionPerformed
+
+    private void btnLimpiarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDepActionPerformed
+       this.limpiar();
+    }//GEN-LAST:event_btnLimpiarDepActionPerformed
 
     /**
      * @param args the command line arguments

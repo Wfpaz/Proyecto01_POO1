@@ -23,11 +23,13 @@ public class CtrlUsuarios {
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("INSERT INTO usuarios VALUES(NULL,?,?,?,?)");
-            cmd.setString(1, obje.getUsuario());
-            cmd.setString(2, obje.getNombres());
-            cmd.setString(3, obje.getApellidos());
-            cmd.setString(4, obje.getContra());
+             
+              PreparedStatement cmd = cn.prepareStatement("INSERT INTO usuarios VALUES(NULL,?,?,?,?,?)");
+            cmd.setString(1, String.valueOf(obje.getIdTipoUsu()));
+              cmd.setString(2, obje.getUsuario());            
+            cmd.setString(3, obje.getNombres());
+            cmd.setString(4, obje.getApellidos());
+            cmd.setString(5, new CtrlContras().encrypt(obje.getContra()));
             
             cmd.executeUpdate();
             resp=true;
@@ -94,13 +96,12 @@ public class CtrlUsuarios {
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("UPDATE usuarios Set usuario = ?, id_tipo_usu = ?, nombre = ?, apellido = ?, contra = ? WHERE id_usuario = ?");
+              PreparedStatement cmd = cn.prepareStatement("UPDATE usuarios Set usuario = ?, id_tipo_usu = ?, nombre = ?, apellido = ? WHERE id_usuario = ?");
              cmd.setString(1, obje.getUsuario());
              cmd.setString(2, String.valueOf(obje.getIdTipoUsu()));             
             cmd.setString(3, obje.getNombres());
             cmd.setString(4, obje.getApellidos());
-            cmd.setString(5, obje.getContra());
-            cmd.setString(6, String.valueOf(obje.getIdUsuario()));
+            cmd.setString(5, String.valueOf(obje.getIdUsuario()));
             
             cmd.executeUpdate();
             resp=true;

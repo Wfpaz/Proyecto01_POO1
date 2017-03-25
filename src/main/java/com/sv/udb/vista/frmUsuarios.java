@@ -5,11 +5,15 @@
  */
 package com.sv.udb.vista;
 
+import com.sv.udb.controlador.CtrlContras;
 import com.sv.udb.controlador.CtrlTipoUsu;
+import com.sv.udb.controlador.CtrlUsuarios;
 import com.sv.udb.modelo.TipoUsuario;
+import com.sv.udb.modelo.Usuarios;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,9 +26,28 @@ public class frmUsuarios extends javax.swing.JFrame {
      */
     public frmUsuarios() {
         initComponents();
+        this.refreshTblUsu();
         this.llenarCombo();
+        this.txtIdUsu.setVisible(false);
+         this.btnGuardar.setVisible(true);
+        this.btnEditar.setVisible(false);
+        this.btnEli.setVisible(false);
     }
-
+ public void limpiar(){
+        this.txtIdUsu.setText("");
+       this.txtUsuario.setText("");
+       this.txtNombre.setText("");
+       this.txtApellidos.setText("");
+       this.txtContra.setText("");
+       this.txtVeriContra.setText("");
+       this.txtContra.setEnabled(true);
+       this.txtVeriContra.setEnabled(true);
+       
+       this.btnEli.setVisible(false);
+       this.btnEditar.setVisible(false);
+       this.btnGuardar.setVisible(true);
+    }
+    
    //metodo para llenar todos los combobox
     public void llenarCombo(){
         DefaultComboBoxModel<TipoUsuario> mod = new DefaultComboBoxModel<>();
@@ -39,6 +62,22 @@ public class frmUsuarios extends javax.swing.JFrame {
        
         
     }
+    
+     public void refreshTblUsu()
+    {
+         try {
+            DefaultTableModel model = (DefaultTableModel)this.tblUsua.getModel();
+            while(model.getRowCount()>0){model.removeRow(0);} //Limpiar modelo
+            for(Usuarios temp : new CtrlUsuarios().consTodo())
+            {
+                model.addRow(new Object[]{temp,temp.getNombres(),temp.getApellidos(), new CtrlTipoUsu().consUno(temp.getIdTipoUsu())});
+            }
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -51,9 +90,7 @@ public class frmUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtApellidos = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtContra = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtVeriContra = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEli = new javax.swing.JButton();
@@ -61,6 +98,8 @@ public class frmUsuarios extends javax.swing.JFrame {
         cmbTipoUsu = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         txtIdUsu = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
+        txtVeriContra = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsua = new javax.swing.JTable();
 
@@ -76,19 +115,7 @@ public class frmUsuarios extends javax.swing.JFrame {
 
         jLabel4.setText("Contraseña");
 
-        txtContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Confirmar Contraseña");
-
-        txtVeriContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtVeriContraActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,10 +125,20 @@ public class frmUsuarios extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEli.setText("Eliminar");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         cmbTipoUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,29 +154,29 @@ public class frmUsuarios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnEli)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar))
                     .addComponent(jLabel5)
-                    .addComponent(txtVeriContra, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContra)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cmbTipoUsu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(btnGuardar)
                             .addGap(18, 18, 18)
                             .addComponent(btnEditar)))
-                    .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtVeriContra))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,7 +200,7 @@ public class frmUsuarios extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtVeriContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,15 +224,20 @@ public class frmUsuarios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Usuario", "Nombre", "Apellidos"
+                "Usuario", "Nombre", "Apellidos", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblUsua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblUsua);
@@ -203,6 +245,7 @@ public class frmUsuarios extends javax.swing.JFrame {
             tblUsua.getColumnModel().getColumn(0).setResizable(false);
             tblUsua.getColumnModel().getColumn(1).setResizable(false);
             tblUsua.getColumnModel().getColumn(2).setResizable(false);
+            tblUsua.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,25 +273,43 @@ public class frmUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraActionPerformed
-
-    private void txtVeriContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVeriContraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtVeriContraActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        if(!(txtUsuario.getText().equals("")) && !(txtNombre.getText().equals("")) 
           && !(txtApellidos.getText().equals("")) && !(txtContra.getText().equals("")) && !(txtVeriContra.getText().equals("")))
        {
-           if(txtContra.getText() == txtVeriContra.getText())
+           if(txtContra.getText().equals(txtVeriContra.getText()) )
            {
-               
+               try
+            {
+                TipoUsuario objeTipoUsu= (TipoUsuario)this.cmbTipoUsu.getSelectedItem();
+                int idTipoUsu = objeTipoUsu.getIdTipoUsu();
+                Usuarios obje = new Usuarios();
+                obje.setIdTipoUsu(idTipoUsu);
+                obje.setUsuario(this.txtUsuario.getText());
+                obje.setNombres(this.txtNombre.getText());
+                obje.setApellidos(this.txtApellidos.getText());
+                obje.setContra(this.txtContra.getText());
+                
+                if(new CtrlUsuarios().guarUsu(obje))
+                {
+                    JOptionPane.showMessageDialog(this, "Datos guardados");
+                    this.limpiar();
+                    this.refreshTblUsu();
+
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                }
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
            }
            else
            {
-               JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para guardarlos");
+               JOptionPane.showMessageDialog(this, "Las contraseñas ingresadas no coinciden");
            }
        }
        else
@@ -261,6 +322,74 @@ public class frmUsuarios extends javax.swing.JFrame {
     private void cmbTipoUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoUsuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTipoUsuActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if(!(txtIdUsu.getText().equals("")))
+        {
+             try
+            {
+                TipoUsuario objeTipoUsu= (TipoUsuario)this.cmbTipoUsu.getSelectedItem();
+                int idTipoUsu = objeTipoUsu.getIdTipoUsu();
+                Usuarios obje = new Usuarios();
+                obje.setIdTipoUsu(idTipoUsu);
+                obje.setIdUsuario(Integer.parseInt(this.txtIdUsu.getText()));
+                obje.setUsuario(this.txtUsuario.getText());
+                obje.setNombres(this.txtNombre.getText());
+                obje.setApellidos(this.txtApellidos.getText());
+                
+                
+                if(new CtrlUsuarios().editarUsu(obje))
+                {
+                    JOptionPane.showMessageDialog(this, "Datos guardados");
+                    this.limpiar();
+                    this.refreshTblUsu();
+
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                }
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder editarlo");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        this.limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void tblUsuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuaMouseClicked
+        int fila = this.tblUsua.getSelectedRow();
+        CtrlContras objeContra = new CtrlContras();
+        if( fila >= 0)
+        {
+            
+            Usuarios obje = (Usuarios)this.tblUsua.getValueAt(fila, 0);
+            this.txtIdUsu.setText(String.valueOf(obje.getIdUsuario()));
+            this.txtUsuario.setText(obje.getUsuario());
+            this.txtNombre.setText(obje.getNombres());
+            this.txtApellidos.setText(obje.getApellidos());
+            this.txtContra.setText(obje.getContra());
+            this.txtVeriContra.setText(obje.getContra());
+            this.txtContra.setEnabled(false);
+             this.txtVeriContra.setEnabled(false);
+            this.cmbTipoUsu.setEditable(true); 
+            this.cmbTipoUsu.setSelectedItem((TipoUsuario)new CtrlTipoUsu().consUno(obje.getIdTipoUsu()));
+            this.cmbTipoUsu.setEditable(false);
+
+            btnEditar.setVisible(true);
+            btnEli.setVisible(true);
+            btnGuardar.setVisible(false);
+        }
+    }//GEN-LAST:event_tblUsuaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -313,10 +442,10 @@ public class frmUsuarios extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsua;
     private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtContra;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtIdUsu;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JTextField txtVeriContra;
+    private javax.swing.JPasswordField txtVeriContra;
     // End of variables declaration//GEN-END:variables
 }

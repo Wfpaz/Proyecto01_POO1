@@ -35,6 +35,7 @@ public class frmMunicipios extends javax.swing.JFrame {
     
     public void limpiar()
     {
+        txtIdMuni.setText("");
         txtNombreMuni.setText("");
         btnEliMuni.setVisible(false);
         btnEditMuni.setVisible(false);
@@ -115,6 +116,11 @@ public class frmMunicipios extends javax.swing.JFrame {
         });
 
         btnLimpiarMuni.setText("Limpiar");
+        btnLimpiarMuni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarMuniActionPerformed(evt);
+            }
+        });
 
         btnEliMuni.setText("Eliminar");
         btnEliMuni.addActionListener(new java.awt.event.ActionListener() {
@@ -352,6 +358,10 @@ public class frmMunicipios extends javax.swing.JFrame {
             btnGuarMuni.setVisible(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblMuniMouseClicked
+
+    private void btnLimpiarMuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarMuniActionPerformed
+        this.limpiar();
+    }//GEN-LAST:event_btnLimpiarMuniActionPerformed
 
     /**
      * @param args the command line arguments
