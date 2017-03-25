@@ -136,11 +136,15 @@ public class frmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuaActionPerformed
 
     private void btnAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoActionPerformed
-         
+         frmAutoridad obje = new frmAutoridad();
+        obje.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAutoActionPerformed
 
     private void btnInstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstActionPerformed
-        // TODO add your handling code here:
+        FrmInstitucion obje = new FrmInstitucion();
+        obje.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInstActionPerformed
 
     private void btnDepaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepaActionPerformed
@@ -156,7 +160,9 @@ public class frmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMuniActionPerformed
 
     private void btnTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoActionPerformed
-       
+       frmTemas obje = new frmTemas();
+        obje.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnTipoActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked

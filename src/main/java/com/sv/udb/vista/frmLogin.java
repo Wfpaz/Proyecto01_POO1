@@ -96,11 +96,17 @@ public class frmLogin extends javax.swing.JFrame {
                 case 0:
                     JOptionPane.showMessageDialog(this, "No existen sus datos en el registro");
                     break;
-                case 1:
-                    JOptionPane.showMessageDialog(this, "Bienvenido admin");
+                case 3:
+                    JOptionPane.showMessageDialog(this, "Bienvenido");
+                    frmAdmin obje = new frmAdmin();
+                    obje.setVisible(true);
+                    this.dispose();
                         break;
-                case 2:
-                    JOptionPane.showMessageDialog(this, "Bienvenido empleado");
+                case 4:
+                    JOptionPane.showMessageDialog(this, "Bienvenido");
+                    frmEmple obje2 = new frmEmple();
+                    obje2.setVisible(true);
+                    this.dispose();
                     break;
             }
         }

@@ -64,7 +64,7 @@ public class DenunciasCtrl {
                     sql.setString(6, String.valueOf(obje.getNumTele()));
                     sql.setString(7, String.valueOf(obje.getCodTema()));
                     sql.setString(8, String.valueOf(obje.getCodInst()));
-                    sql.executeUpdate();
+                    sql.executeUpdate();                    
                     resp=true;
                     break;
                 default:
