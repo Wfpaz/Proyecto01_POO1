@@ -185,17 +185,17 @@ public class FrmInstitucion extends javax.swing.JFrame {
 
         tblInst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Correo", "Direccion", "Departamento", "Municipio", "Estado"
+                "Nombre", "Correo", "Direccion", "Ubicacion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -229,8 +229,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
                         .addComponent(btnEliminar)
                         .addGap(11, 11, 11)
                         .addComponent(btnLimpiar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -256,8 +256,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +290,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
             {
               if(temp != null)
               {
-                modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+                modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN()+"/"+temp.getMunicipioN(),temp.getEstadoS()});
             
               }
             }
@@ -308,7 +308,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
         model.addElement("");
       for(Departamentos temp: new DepartamentosCtrl().consTodo())
       {
-      model.addElement(temp);
+          if(temp != null)
+          {
+            model.addElement(temp);
+          }
+         
       }    
       cmbDepartamento.setModel(model);
         } 
@@ -326,7 +330,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
         model.addElement("");
       for(Municipios temp: new  CtrlMunicipios().consUnoV2(objDepa.getIdDepa()))
       {
-      model.addElement(temp);
+          if(temp != null)
+          {
+            model.addElement(temp);
+          }
+          
       }    
       cmbMunicipio.setModel(model);
         } 
