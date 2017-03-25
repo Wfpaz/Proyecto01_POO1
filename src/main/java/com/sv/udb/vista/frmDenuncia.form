@@ -248,7 +248,6 @@
                     <StringItem index="1" value="Femenino"/>
                   </StringArray>
                 </Property>
-                <Property name="selectedIndex" type="int" value="-1"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <AuxValues>

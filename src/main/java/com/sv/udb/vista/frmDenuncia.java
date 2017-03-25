@@ -110,7 +110,6 @@ public class frmDenuncia extends javax.swing.JFrame {
         jLabel6.setText("Numero de telefono");
 
         cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
-        cmbGenero.setSelectedIndex(-1);
         cmbGenero.setToolTipText("");
 
         jLabel8.setText("Remitir a ");
@@ -451,11 +450,54 @@ public class frmDenuncia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarRemitirActionPerformed
 
     private void btnSoloArchivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoloArchivarActionPerformed
-        int SN;  
-        SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (SN == 0) {
-            
-        }
+        if (!"".equals(txtVictima.getText()) && cmbGenero.getSelectedIndex() != -1 && cmbTipoDenuncia.getSelectedIndex() != -1) {
+            int SN;  
+            SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (SN == 0) {
+                try 
+                 {
+                    Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+                    Denuncias obje = new Denuncias();
+                    String genero;
+                    if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; 
+                    else if("Femenino".equals(cmbGenero.getSelectedItem().toString()))  genero = "F";
+                    else genero = "";
+
+                    if (!"".equals(txtIdInst.getText())){
+                        obje.setCodInst(!"".equals(Integer.parseInt(txtIdInst.getText())) ? Integer.parseInt(txtIdInst.getText()) : 0);
+                    }
+
+                    if (!"".equals(txtTelefono.getText())) {
+                       obje.setEdad(!"".equals(Integer.parseInt(txtEdadVictima.getText())) ? Integer.parseInt(txtEdadVictima.getText()) : 0); 
+                    }
+                    
+                    if (!"".equals(txtTelefono.getText())) {
+                        obje.setNumTele(!"".equals(Integer.parseInt(txtTelefono.getText())) ? Integer.parseInt(txtTelefono.getText()) : 0);
+                    }
+
+                    obje.setNombVict(!"".equals(txtVictima.getText()) ? txtVictima.getText() : "");
+                    obje.setCodTema(!"".equals(objeTema.getIdTema()) ? objeTema.getIdTema() : 0);
+                    obje.setFecha(fecha.format(now)); 
+                    obje.setHora(hora.format(now));
+                    obje.setGenero(genero);                    
+                    obje.setViable(1);
+
+                    if(new DenunciasCtrl().guarDenu(obje, "Archivar"))
+                    {
+                       JOptionPane.showMessageDialog(this, "Datos guardados");
+                       this.limpiar();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                    }
+                  } 
+                  catch (Exception ex) 
+                  {
+                      JOptionPane.showMessageDialog(this, ex.getMessage());
+                  } 
+            } 
+        } else JOptionPane.showMessageDialog(this, "Es obligatorio que rellene los campos Nombre, Genero y el Tema de denuncia como minimo, para realizar esta operación");
     }//GEN-LAST:event_btnSoloArchivarActionPerformed
 
     private void btnTomarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarContactoActionPerformed

@@ -25,17 +25,15 @@ public class DenunciasCtrl {
             if (null != opci) switch (opci) {
                 case "Archivar":
                     
-                    PreparedStatement cons = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, id_auto, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
-                    cons.setString(1, !"".equals(obje.getFecha()) ? obje.getFecha() : null);
-                    cons.setString(2, !"".equals(obje.getHora()) ? obje.getHora() : null);
+                    PreparedStatement cons = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+                    cons.setString(1, obje.getFecha());
+                    cons.setString(2, obje.getHora());
                     cons.setString(3, !"".equals(obje.getNombVict()) ? obje.getNombVict() : null);
-                    cons.setString(4, !"".equals(String.valueOf(obje.getEdad())) ? String.valueOf(obje.getEdad()) : null);
+                    cons.setString(4, !"0".equals(String.valueOf(obje.getEdad())) ? String.valueOf(obje.getEdad()) : null);
                     cons.setString(5, !"".equals(obje.getGenero()) ? obje.getGenero() : null);;
-                    cons.setString(6, !"".equals(String.valueOf(obje.getNumTele())) ? String.valueOf(obje.getNumTele()) : null);
-                    cons.setString(7, !"".equals(String.valueOf(obje.getCodTema())) ? String.valueOf(obje.getCodTema()) : null);
-                    cons.setString(8, !"".equals(String.valueOf(obje.getCodInst())) ? String.valueOf(obje.getCodInst()) : null);
-                    cons.setString(9, !"".equals(String.valueOf(obje.getCodInst())) ? String.valueOf(obje.getCodInst()) : null);
-                    cons.setString(10, "0");
+                    cons.setString(6, !"0".equals(String.valueOf(obje.getNumTele())) ? String.valueOf(obje.getNumTele()) : null);
+                    cons.setString(7, !"0".equals(String.valueOf(obje.getCodTema())) ? String.valueOf(obje.getCodTema()) : null);
+                    cons.setString(8, !"0".equals(String.valueOf(obje.getCodInst())) ? String.valueOf(obje.getCodInst()) : null);
                     cons.executeUpdate();
                     resp=true;
                     
@@ -57,7 +55,7 @@ public class DenunciasCtrl {
                     break;
                 case "Contactar":
                     
-                    PreparedStatement sql = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+                    PreparedStatement sql = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
                     sql.setString(1, obje.getFecha());
                     sql.setString(2, obje.getHora());
                     sql.setString(3, obje.getNombVict());
@@ -66,7 +64,6 @@ public class DenunciasCtrl {
                     sql.setString(6, String.valueOf(obje.getNumTele()));
                     sql.setString(7, String.valueOf(obje.getCodTema()));
                     sql.setString(8, String.valueOf(obje.getCodInst()));
-                    sql.setString(9, "1");
                     sql.executeUpdate();
                     resp=true;
                     break;
