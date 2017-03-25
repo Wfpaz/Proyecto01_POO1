@@ -112,7 +112,6 @@
         <Component class="javax.swing.JTextField" name="txtNombreDepa">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreDepaActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreDepaKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombreDepa">

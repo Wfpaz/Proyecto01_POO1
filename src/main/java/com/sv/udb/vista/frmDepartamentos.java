@@ -85,11 +85,6 @@ public class frmDepartamentos extends javax.swing.JFrame {
                 txtNombreDepaActionPerformed(evt);
             }
         });
-        txtNombreDepa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreDepaKeyTyped(evt);
-            }
-        });
 
         lblNombreDepa.setText("Nombre:");
 
@@ -282,8 +277,8 @@ public class frmDepartamentos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditDepaActionPerformed
 
-    private void tblDepaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDepaMouseClicked
-int fila = this.tblDepa.getSelectedRow();
+    private void tblDepaMouseClicked(java.awt.event.MouseEvent evt) {                                     
+        int fila = this.tblDepa.getSelectedRow();
         if( fila >= 0)
         {
             Departamentos obje = (Departamentos)this.tblDepa.getValueAt(fila, 0);
@@ -292,7 +287,9 @@ int fila = this.tblDepa.getSelectedRow();
             
             btnEditDepa.setVisible(true);
         btnEliDepa.setVisible(true);
-
+        }
+    }
+    
     private void btnEliDepaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliDepaActionPerformed
         if(!(txtIdDepa.getText().equals("")))
         { 
@@ -327,6 +324,10 @@ int fila = this.tblDepa.getSelectedRow();
          JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder eliminarlo");    
         }
     }//GEN-LAST:event_btnEliDepaActionPerformed
+
+    private void btnLimpiarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDepActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarDepActionPerformed
 
     /**
      * @param args the command line arguments

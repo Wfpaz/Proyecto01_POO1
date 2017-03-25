@@ -105,11 +105,6 @@ public class frmMunicipios extends javax.swing.JFrame {
                 txtNombreMuniActionPerformed(evt);
             }
         });
-        txtNombreMuni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreMuniKeyTyped(evt);
-            }
-        });
 
         lblNombreDepa.setText("Nombre:");
 
@@ -363,6 +358,10 @@ public class frmMunicipios extends javax.swing.JFrame {
             btnGuarMuni.setVisible(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblMuniMouseClicked
+
+    private void btnLimpiarMuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarMuniActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarMuniActionPerformed
     /**
      * @param args the command line arguments
      */
