@@ -356,18 +356,22 @@ public class frmAutoridad extends javax.swing.JFrame {
             Autoridad obj = new Autoridad();
             if (!txtCodigo.getText().isEmpty())
             {
-                obj.setCodi(Integer.parseInt(txtCodigo.getText()));
-                obj.setEstado(false);
-                if(new AutoridadCtrl().eliminar(obj))
+                int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro en eliminar"+txtAutoridadNomb.getText()+"?");
+                if(resp == 0)
                 {
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    Refresh();
+                    obj.setCodi(Integer.parseInt(txtCodigo.getText()));
+                    obj.setEstado(false);
+                    if(new AutoridadCtrl().eliminar(obj))
+                    {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        Refresh();
+                        Limpiar();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                    }
                 }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un error");
-                }
-
             }
             else
             {
