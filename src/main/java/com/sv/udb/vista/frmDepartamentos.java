@@ -330,6 +330,13 @@ int fila = this.tblDepa.getSelectedRow();
        this.limpiar();
     }//GEN-LAST:event_btnLimpiarDepActionPerformed
 
+    private void txtNombreDepaKeyTyped(java.awt.event.KeyEvent evt) {                                       
+        char k = evt.getKeyChar();
+        if(Character.isDigit(k)) {
+            evt.consume();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

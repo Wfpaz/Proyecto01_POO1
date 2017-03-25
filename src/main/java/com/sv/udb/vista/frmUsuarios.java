@@ -132,6 +132,11 @@ public class frmUsuarios extends javax.swing.JFrame {
         });
 
         btnEli.setText("Eliminar");
+        btnEli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -390,6 +395,40 @@ public class frmUsuarios extends javax.swing.JFrame {
             btnGuardar.setVisible(false);
         }
     }//GEN-LAST:event_tblUsuaMouseClicked
+
+    private void btnEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliActionPerformed
+        if(!(txtIdUsu.getText().equals("")))
+        {
+            if (JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar este Departamento?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                try
+                {
+                    int id =Integer.parseInt(txtIdUsu.getText());
+
+                    if(new CtrlUsuarios().eliminarUsu(id))
+                    {
+                        JOptionPane.showMessageDialog(this, "El usuario ha sido eliminado");
+                        this.limpiar();
+                        this.refreshTblUsu();
+
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Oops! algo malo pasó al tratar de eliminar");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+            }
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder eliminarlo");
+        }
+    }//GEN-LAST:event_btnEliActionPerformed
 
     /**
      * @param args the command line arguments
