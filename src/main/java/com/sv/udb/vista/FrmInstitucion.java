@@ -13,6 +13,7 @@ import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Municipios;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +27,9 @@ public class FrmInstitucion extends javax.swing.JFrame {
     public FrmInstitucion() {
         initComponents();
         LlenarComboxDepar();
+        btnActualizar.setVisible(false);
+        this.setLocationRelativeTo(null);
+        Refresh();
     }
 
     /**
@@ -52,9 +56,12 @@ public class FrmInstitucion extends javax.swing.JFrame {
         cmbDepartamento = new javax.swing.JComboBox<>();
         cmbMunicipio = new javax.swing.JComboBox<>();
         chkHabilitado = new javax.swing.JCheckBox();
-        btnGuarActu = new javax.swing.JButton();
+        btnGuar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblInst = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,43 +153,93 @@ public class FrmInstitucion extends javax.swing.JFrame {
                 .addComponent(chkHabilitado))
         );
 
-        btnGuarActu.setText("Guardar");
-        btnGuarActu.addActionListener(new java.awt.event.ActionListener() {
+        btnGuar.setText("Guardar");
+        btnGuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuarActuActionPerformed(evt);
+                btnGuarActionPerformed(evt);
             }
         });
 
         btnEliminar.setText("Eliminar");
 
-        jButton3.setText("Limpiar");
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        tblInst.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Correo", "Direccion", "Departamento", "Municipio", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblInst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInstMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblInst);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnGuarActu)
-                        .addGap(18, 18, 18)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnActualizar)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnGuar)))
+                        .addGap(9, 9, 9)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(11, 11, 11)
+                        .addComponent(btnLimpiar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuarActu)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnGuar)
                     .addComponent(btnEliminar)
-                    .addComponent(jButton3))
+                    .addComponent(btnLimpiar))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -192,14 +249,15 @@ public class FrmInstitucion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,6 +272,22 @@ public class FrmInstitucion extends javax.swing.JFrame {
     resp=true;
     }
     return resp;
+    }
+    public void Refresh()
+    {
+        try 
+        {
+            DefaultTableModel modelo = (DefaultTableModel)this.tblInst.getModel();
+            while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
+            for(Institucion temp: new InstitucionCtrl().consTodo())
+            {
+               modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+            }
+        }
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
      public void LlenarComboxDepar ()
     {
@@ -239,7 +313,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         Departamentos objDepa = (Departamentos)this.cmbDepartamento.getSelectedItem();
         model.addElement("");
-      for(Municipios temp: new  CtrlMunicipios().consUno(objDepa.getIdDepa()))
+      for(Municipios temp: new  CtrlMunicipios().consUnoV2(objDepa.getIdDepa()))
       {
       model.addElement(temp);
       }    
@@ -252,6 +326,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
     }
     public void Limpiar()
     {
+    btnGuar.setVisible(true);
+      btnActualizar.setVisible(false);
     txtCodigo.setText("");
     txtNomb.setText("");
     txtCorreo.setText("");
@@ -259,14 +335,13 @@ public class FrmInstitucion extends javax.swing.JFrame {
     cmbDepartamento.setSelectedIndex(-1);
     cmbMunicipio.setSelectedIndex(-1);
     txtNomb.requestFocus();
-    btnGuarActu.setText("Guardar");
     }
-    private void btnGuarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuarActuActionPerformed
+    private void btnGuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuarActionPerformed
        if (verificar())
        {
             Institucion obj = new Institucion();
             Municipios obje = (Municipios)this.cmbMunicipio.getSelectedItem();
-           if (btnGuarActu.getText() == "Guardar" && txtCodigo.getText().isEmpty())
+           if (txtCodigo.getText().isEmpty())
            {
               
                obj.setNomb(txtNomb.getText());
@@ -277,6 +352,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
                if(new InstitucionCtrl().guar(obj))
                {
                 JOptionPane.showMessageDialog(null, "Guardado");
+                Refresh();
+                Limpiar();
                }
                else
                {
@@ -288,25 +365,94 @@ public class FrmInstitucion extends javax.swing.JFrame {
            {
                JOptionPane.showMessageDialog(null,"Limpie los datos de la institucion anterior");
            }
-           if (btnGuarActu.getText() == "Actualizar" && !txtCodigo.getText().isEmpty())
-           {
-               obj.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           }
-           else
-           {
-               JOptionPane.showMessageDialog(null, "Seleccione una institución porfavor");
-           }
        }
        else
        {
        JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
        }
        
-    }//GEN-LAST:event_btnGuarActuActionPerformed
+    }//GEN-LAST:event_btnGuarActionPerformed
 
     private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
-     LlenarComboxMuni();
+     if(cmbDepartamento.getSelectedIndex()>0)
+     {
+        LlenarComboxMuni();
+     }
+     else
+     {
+     DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+     modelo.addElement("");
+     cmbMunicipio.setModel(modelo);
+     }
     }//GEN-LAST:event_cmbDepartamentoItemStateChanged
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+     if (verificar())
+       {
+            Institucion obj = new Institucion();
+            Municipios obje = (Municipios)this.cmbMunicipio.getSelectedItem();
+           if (!txtCodigo.getText().isEmpty())
+           {
+               obj.setCodigo(Integer.parseInt(txtCodigo.getText()));
+               obj.setNomb(txtNomb.getText());
+               obj.setCorreo(txtCorreo.getText());
+               obj.setDireccion(txtDireccion.getText());
+               obj.setMunicipio(obje.getIdMuni());
+               obj.setEstado(chkHabilitado.isSelected());
+               if(new InstitucionCtrl().actu(obj))
+               {
+                JOptionPane.showMessageDialog(null, "Modificado");
+                Refresh();
+               }
+               else
+               {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error");
+               }
+
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(null,"Limpie los datos de la institucion anterior");
+           }
+       }
+       else
+       {
+       JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
+       }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void tblInstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInstMouseClicked
+     int fila = tblInst.getSelectedRow();
+      if(fila >= 0)
+    {
+    Institucion obj = (Institucion) this.tblInst.getValueAt(fila,0);
+    InstitucionCtrl obje = new InstitucionCtrl();
+    this.txtCodigo.setText(String.valueOf(obj.getCodigo()));
+    this.txtNomb.setText(obj.getNomb());
+    this.txtCorreo.setText(obj.getCorreo());
+    this.txtDireccion.setText(obj.getDireccion());
+    this.cmbDepartamento.setEditable(true);
+    this.cmbDepartamento.setSelectedIndex(obje.Index(obj.getDepartamentoN()));
+    this.cmbDepartamento.setEditable(false);
+     this.cmbMunicipio.setEditable(true);
+    this.cmbMunicipio.setSelectedIndex(obje.Index2(obj.getDepartamentoN(),obj.getMunicipioN()));
+    this.cmbMunicipio.setEditable(false);
+    if(obj.getEstadoS().equals("Habilitado"))
+    {
+    this.chkHabilitado.setSelected(true);
+    }
+    else
+    {
+    this.chkHabilitado.setSelected(false);
+    }
+    btnGuar.setVisible(false);
+    btnActualizar.setVisible(true);
+    }
+    }//GEN-LAST:event_tblInstMouseClicked
 
     /**
      * @param args the command line arguments
@@ -344,20 +490,23 @@ public class FrmInstitucion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuarActu;
+    private javax.swing.JButton btnGuar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chkHabilitado;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDepartamento;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblMunicipio;
     private javax.swing.JLabel lblNomb;
+    private javax.swing.JTable tblInst;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;

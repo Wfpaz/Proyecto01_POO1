@@ -158,13 +158,48 @@ public class CtrlMunicipios {
         return resp;
         
     }
+    public Municipios consUno(int id)
+    {
+        Municipios resp = new Municipios();
+        Connection cn =new Conexion().getConn();
+        try {
+            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_muni = ?");
+             cmd.setString(1, String.valueOf(id));
+            ResultSet rs = cmd.executeQuery();
+            while(rs.next())
+            {
+                resp = new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3));
+            }
+        } catch (Exception err) 
+        {
+            err.printStackTrace();
+        }
+        finally
+        {
+            try {
+                 if(cn!=null)
+                {
+                    if(!cn.isClosed())
+                    {
+                        cn.close();
+                    }
+                }
+                
+            } catch (SQLException err) {
+                err.printStackTrace();
+            }
+            
+        }
+        return resp;
+        
+    }
     
-     public List<Municipios> consUno(int id)
+     public List<Municipios> consUnoV2(int id)
     {
         List<Municipios> resp = new ArrayList<>();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_muni = ?");
+            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_dept = ?");
              cmd.setString(1, String.valueOf(id));
             ResultSet rs = cmd.executeQuery();
             while(rs.next())

@@ -10,20 +10,58 @@ package com.sv.udb.modelo;
  * @author Luis
  */
 public class Institucion {
-    int codigo,Municipio;
+    int codigo,Municipio,Departamento;
     boolean estado;
-    String nomb,correo,direccion;
+    String nomb,correo,direccion,MunicipioN,DepartamentoN,estadoS;
+
+    public String getEstadoS() {
+        return estadoS;
+    }
+
+    public void setEstadoS(String estadoS) {
+        this.estadoS = estadoS;
+    }
+
+    public int getDepartamento() {
+        return Departamento;
+    }
+
+    public void setDepartamento(int Departamento) {
+        this.Departamento = Departamento;
+    }
+
+    public String getMunicipioN() {
+        return MunicipioN;
+    }
+
+    public void setMunicipioN(String MunicipioN) {
+        this.MunicipioN = MunicipioN;
+    }
+
+    public String getDepartamentoN() {
+        return DepartamentoN;
+    }
+
+    public void setDepartamentoN(String DepartamentoN) {
+        this.DepartamentoN = DepartamentoN;
+    }
 
     public Institucion() {
     }
-    public Institucion(int codigo, int Municipio, boolean estado, String nomb, String correo, String direccion) {
+
+    public Institucion(int codigo,String nomb,String correo,String direccion,int Departamento,String DepartamentoN, int Municipio,String MunicipioN,String estadoS ) {
         this.codigo = codigo;
-        this.Municipio = Municipio;
-        this.estado = estado;
         this.nomb = nomb;
         this.correo = correo;
         this.direccion = direccion;
+        this.Departamento = Departamento;
+        this.DepartamentoN = DepartamentoN;
+        this.Municipio = Municipio;
+        this.MunicipioN = MunicipioN;
+        this.estadoS = estadoS;  
+        
     }
+   
 
     @Override
     public String toString() {

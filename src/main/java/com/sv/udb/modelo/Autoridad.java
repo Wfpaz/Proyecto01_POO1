@@ -10,6 +10,63 @@ package com.sv.udb.modelo;
  * @author Luis
  */
 public class Autoridad {
+    int codi;
+    String nomb,correo,estadoS;
+    boolean estado;
+
+    @Override
+    public String toString() {
+        return  nomb ;
+    }
+
+    public String getEstadoS() {
+        return estadoS;
+    }
+
+    public void setEstadoS(String estadoS) {
+        this.estadoS = estadoS;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public Autoridad(int codi, String nomb, String correo) {
+        this.codi = codi;
+        this.nomb = nomb;
+        this.correo = correo;
+    }
+
+    public Autoridad() {
+    }
+
+    public int getCodi() {
+        return codi;
+    }
+
+    public void setCodi(int codi) {
+        this.codi = codi;
+    }
+
+    public String getNomb() {
+        return nomb;
+    }
+
+    public void setNomb(String nomb) {
+        this.nomb = nomb;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
    
     
 }
