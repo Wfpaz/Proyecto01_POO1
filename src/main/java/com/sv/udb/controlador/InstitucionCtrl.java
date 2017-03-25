@@ -44,6 +44,30 @@ public class InstitucionCtrl {
             }
         return resp;
     }
+    public List<Institucion> consTodo2()
+    {
+        List<Institucion> resp = new ArrayList();
+        Connection con = new Conexion().getConn();
+            try 
+            {
+             PreparedStatement cmd = con.prepareStatement("select ins.id_inst,ins.nomb_inst,ins.correo_inst,"
+               + "ins.dire_inst,m.id_dept,d.dept,m.id_muni,m.muni,CASE   ins.estado WHEN 1 THEN 'Habilitado' WHEN  0 THEN 'Desabilitado' END " 
+              +"from departamento d inner join  municipio m on  m.id_dept=d.id_dept inner join instituciones ins on ins.id_muni = m.id_muni where estado=1 ");
+             
+             ResultSet rs = cmd.executeQuery();
+             while(rs.next())
+             {
+             resp.add(new Institucion(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6)
+             ,rs.getInt(7),rs.getString(8),rs.getString(9)));
+             }
+                
+            }
+            catch (Exception e) 
+            {
+                JOptionPane.showMessageDialog(null,"Error:"+e.getMessage());
+            }
+        return resp;
+    }
      public int Index(String Nombre)
     {
        int resp = 0;

@@ -682,7 +682,7 @@ public class frmDenuncia extends javax.swing.JFrame {
         try {
             DefaultTableModel modelo = (DefaultTableModel)this.tblInstitucion.getModel();
             while(modelo.getRowCount()>0){modelo.removeRow(0);} 
-            new InstitucionCtrl().consTodo().stream().filter((temp) -> (temp != null)).forEachOrdered((temp) -> {
+            new InstitucionCtrl().consTodo2().stream().filter((temp) -> (temp != null)).forEachOrdered((temp) -> {
                 modelo.addRow(new Object[]{temp,temp.getDepartamentoN()+" / "+ temp.getMunicipioN()});
             });
             limpiar();
