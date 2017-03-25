@@ -227,6 +227,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAutoridadNomb">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtAutoridadNombKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCorreo">
               <Properties>

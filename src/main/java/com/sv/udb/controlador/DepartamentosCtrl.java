@@ -131,7 +131,10 @@ public class DepartamentosCtrl {
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
+              
                 resp.add(new Departamentos(rs.getInt(1),rs.getString(2)));
+                
+                
             }
         } catch (Exception err) 
         {

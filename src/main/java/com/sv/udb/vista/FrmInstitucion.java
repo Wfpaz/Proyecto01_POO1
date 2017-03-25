@@ -94,13 +94,6 @@ public class FrmInstitucion extends javax.swing.JFrame {
                 txtNombKeyTyped(evt);
             }
         });
-
-        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCorreoKeyTyped(evt);
-            }
-        });
-
         cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDepartamentoItemStateChanged(evt);
@@ -205,17 +198,17 @@ public class FrmInstitucion extends javax.swing.JFrame {
 
         tblInst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Correo", "Direccion", "Departamento", "Municipio", "Estado"
+                "Nombre", "Correo", "Direccion", "Ubicacion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -249,8 +242,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
                         .addComponent(btnEliminar)
                         .addGap(11, 11, 11)
                         .addComponent(btnLimpiar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,8 +287,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,8 +304,8 @@ public class FrmInstitucion extends javax.swing.JFrame {
     {
     boolean resp=false;
     if(!txtNomb.getText().trim().isEmpty() && !txtCorreo.getText().trim().isEmpty() 
-       && !txtDireccion.getText().trim().isEmpty()&&cmbDepartamento.getSelectedIndex() != -1 
-       && cmbMunicipio.getSelectedIndex() != -1)
+       && !txtDireccion.getText().trim().isEmpty()&&cmbDepartamento.getSelectedIndex() > 0 
+       &&  cmbMunicipio.getSelectedIndex() > 0)
     {
     resp=true;
     }
@@ -326,11 +319,13 @@ public class FrmInstitucion extends javax.swing.JFrame {
             while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
             for(Institucion temp: new InstitucionCtrl().consTodo())
             {
+
                if(temp != null)
                {
                     modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
                     Limpiar();
                }
+
             }
         }
         catch (Exception ex) 
@@ -346,7 +341,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
         model.addElement("");
       for(Departamentos temp: new DepartamentosCtrl().consTodo())
       {
-      model.addElement(temp);
+          if(temp != null)
+          {
+            model.addElement(temp);
+          }
+         
       }    
       cmbDepartamento.setModel(model);
         } 
@@ -364,7 +363,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
         model.addElement("");
       for(Municipios temp: new  CtrlMunicipios().consUnoV2(objDepa.getIdDepa()))
       {
-      model.addElement(temp);
+          if(temp != null)
+          {
+            model.addElement(temp);
+          }
+          
       }    
       cmbMunicipio.setModel(model);
         } 
@@ -452,6 +455,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
                {
                 JOptionPane.showMessageDialog(null, "Modificado");
                 Refresh();
+                Limpiar();
                }
                else
                {
@@ -538,15 +542,17 @@ public class FrmInstitucion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombKeyTyped
-        char k = evt.getKeyChar();
-        if(Character.isDigit(k)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombKeyTyped
 
-    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoKeyTyped
+      char c= evt.getKeyChar();
+      if(Character.isLetter(c));
+      else if (Character.isSpace(c));
+      else if (Character.isISOControl(c));
+      else
+      {
+      evt.consume();
+          System.out.println("Solo letras");
+      }
+    }//GEN-LAST:event_txtNombKeyTyped
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         frmAdmin obje = new frmAdmin();
@@ -559,6 +565,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
         obje.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
+
 
     /**
      * @param args the command line arguments

@@ -95,6 +95,12 @@ public class frmAutoridad extends javax.swing.JFrame {
 
         lblAutoriadaNomb.setText("Nombre Autoridad");
 
+        txtAutoridadNomb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAutoridadNombKeyTyped(evt);
+            }
+        });
+
         lblCorreo.setText("Correo");
 
         chkHabilitado.setText("Habilitado");
@@ -238,7 +244,7 @@ public class frmAutoridad extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -277,11 +283,12 @@ public class frmAutoridad extends javax.swing.JFrame {
         while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
         for (Autoridad temp: new AutoridadCtrl().consTodo())
         {
-             if(temp != null)
-               {
-                    modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getEstadoS()});
-                    Limpiar();
-               }
+
+            if(temp != null)
+            {
+                modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getEstadoS()});
+        
+            }
         }
     }
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -298,6 +305,7 @@ public class frmAutoridad extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, "Modificado");
                     Refresh();
+                    Limpiar();
                 }
                 else
                 {
@@ -411,6 +419,19 @@ public class frmAutoridad extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+
+    private void txtAutoridadNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutoridadNombKeyTyped
+     char c= evt.getKeyChar();
+      if(Character.isLetter(c));
+      else if (Character.isSpace(c));
+      else if (Character.isISOControl(c));
+      else
+      {
+      evt.consume();
+          System.out.println("Solo letras");
+      }
+    }//GEN-LAST:event_txtAutoridadNombKeyTyped
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         frmAdmin obje = new frmAdmin();
