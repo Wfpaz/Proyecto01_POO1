@@ -5,8 +5,10 @@
  */
 package com.sv.udb.vista;
 
+import com.sv.udb.controlador.AutoridadCtrl;
 import com.sv.udb.controlador.DenunciasCtrl;
 import com.sv.udb.controlador.TemasCtrl;
+import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Denuncias;
 import com.sv.udb.modelo.Temas;
 import java.time.LocalDate;
@@ -30,6 +32,7 @@ public class frmDenuncia extends javax.swing.JFrame {
         initComponents();
         fechaHora();
         llenarComboBox();
+        llenarComboBox2();
     }
     
     private void fechaHora() {
@@ -529,13 +532,23 @@ public class frmDenuncia extends javax.swing.JFrame {
     }
     
     private void llenarComboBox() {        
-        DefaultComboBoxModel<Temas> modeEqui = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Temas> modeTema = new DefaultComboBoxModel<>();
          for(Temas temp : new TemasCtrl().consTodo())
          {
-             modeEqui.addElement(temp);
+             modeTema.addElement(temp);
          }
-         this.cmbTipoDenuncia.setModel((ComboBoxModel)modeEqui);
+         this.cmbTipoDenuncia.setModel((ComboBoxModel)modeTema);
          cmbTipoDenuncia.setSelectedIndex(-1);
+    }
+    
+    private void llenarComboBox2() {        
+        DefaultComboBoxModel<Autoridad> modeAuto = new DefaultComboBoxModel<>();
+         for(Autoridad temp : new AutoridadCtrl().consTodo())
+         {
+             modeAuto.addElement(temp);
+         }
+         this.cmbAutoridad.setModel((ComboBoxModel)modeAuto);
+         cmbAutoridad.setSelectedIndex(-1);
     }
 
     /**
