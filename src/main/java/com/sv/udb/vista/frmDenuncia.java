@@ -6,12 +6,15 @@
 package com.sv.udb.vista;
 
 import com.sv.udb.controlador.DenunciasCtrl;
+import com.sv.udb.controlador.TemasCtrl;
 import com.sv.udb.modelo.Denuncias;
 import com.sv.udb.modelo.Temas;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +29,7 @@ public class frmDenuncia extends javax.swing.JFrame {
     public frmDenuncia() {
         initComponents();
         fechaHora();
+        llenarComboBox();
     }
     
     private void fechaHora() {
@@ -126,39 +130,37 @@ public class frmDenuncia extends javax.swing.JFrame {
                         .addComponent(lblFechaHora))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblVictima)
-                        .addGap(40, 40, 40)
-                        .addComponent(txtVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 6, Short.MAX_VALUE))
+                        .addComponent(lblVictima)))
+                .addContainerGap(243, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(txtIdInst, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtInstitucion))
-                                .addComponent(cmbTipoDenuncia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbAutoridad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtIdInst, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbTipoDenuncia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbAutoridad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbGenero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtEdadVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(txtVictima, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,11 +332,11 @@ public class frmDenuncia extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,95 +398,104 @@ public class frmDenuncia extends javax.swing.JFrame {
     LocalDateTime now = LocalDateTime.now();
     
     private void btnGuardarRemitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRemitirActionPerformed
-        
-        if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbAutoridad.getSelectedItem().equals(-1)) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
-        {
-         try 
-         {
-            Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-//            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
-            Denuncias obje = new Denuncias();
-            String genero;
-            if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
-            
-            obje.setNombVict(txtVictima.getText());
-            obje.setCodAuto(objeTema.getIdTema());
-            obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
-            obje.setCodTema(objeTema.getIdTema());
-            obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
-            obje.setFecha(fecha.format(now)); 
-            obje.setHora(hora.format(now));
-            obje.setGenero(genero);
-            obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
-            obje.setViable(1);
-            
-            if(new DenunciasCtrl().guarDenu(obje, "Remitir"))
+        int SN;  
+        SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (SN == 0) {
+            if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbAutoridad.getSelectedItem().equals(-1)) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
             {
-               JOptionPane.showMessageDialog(this, "Datos guardados");
-               this.limpiar();                
+             try 
+             {
+                Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+                Denuncias obje = new Denuncias();
+                String genero;
+                if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
+
+                obje.setNombVict(txtVictima.getText());
+                obje.setCodAuto(objeTema.getIdTema());
+                obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
+                obje.setCodTema(objeTema.getIdTema());
+                obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
+                obje.setFecha(fecha.format(now)); 
+                obje.setHora(hora.format(now));
+                obje.setGenero(genero);
+                obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
+                obje.setViable(1);
+
+                if(new DenunciasCtrl().guarDenu(obje, "Remitir"))
+                {
+                   JOptionPane.showMessageDialog(this, "Datos guardados");
+                   this.limpiar();                
+                }
+                else
+                {
+                      JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                }
+              } 
+              catch (Exception ex) 
+              {
+                  JOptionPane.showMessageDialog(this, ex.getMessage());
+              }   
             }
             else
             {
-                  JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+             JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
             }
-          } 
-          catch (Exception ex) 
-          {
-              JOptionPane.showMessageDialog(this, ex.getMessage());
-          }   
-        }
-        else
-        {
-         JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
-         
         }
     }//GEN-LAST:event_btnGuardarRemitirActionPerformed
 
     private void btnSoloArchivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoloArchivarActionPerformed
-        // TODO add your handling code here:
+        int SN;  
+        SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (SN == 0) {
+            
+        }
     }//GEN-LAST:event_btnSoloArchivarActionPerformed
 
     private void btnTomarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarContactoActionPerformed
-        if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
-        {
-         try 
-         {
-            Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-//            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
-            Denuncias obje = new Denuncias();
-            String genero;
-            if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
-            
-            obje.setNombVict(txtVictima.getText());
-            obje.setCodAuto(0);
-            obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
-            obje.setCodTema(objeTema.getIdTema());
-            obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
-            obje.setFecha(fecha.format(now)); 
-            obje.setHora(hora.format(now));
-            obje.setGenero(genero);
-            obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
-            obje.setViable(1);
-            
-            if(new DenunciasCtrl().guarDenu(obje, "Contactar"))
+        int SN;  
+        SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (SN == 0) {
+            if (!(txtVictima.getText().equals("")) && !(txtEdadVictima.getText().equals("")) && !(txtInstitucion.getText().equals("")) && !(txtTelefono.getText().equals("")) && !(cmbGenero.getSelectedItem().equals(-1)) && !(cmbTipoDenuncia.getSelectedItem().equals(-1)))
             {
-               JOptionPane.showMessageDialog(this, "Datos guardados");
-               this.limpiar();
+             try 
+             {
+                Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+                Denuncias obje = new Denuncias();
+                String genero;
+                if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
+
+                obje.setNombVict(txtVictima.getText());
+                obje.setCodAuto(0);
+                obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
+                obje.setCodTema(objeTema.getIdTema());
+                obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
+                obje.setFecha(fecha.format(now)); 
+                obje.setHora(hora.format(now));
+                obje.setGenero(genero);
+                obje.setNumTele(Integer.parseInt(txtTelefono.getText()));
+                obje.setViable(1);
+
+                if(new DenunciasCtrl().guarDenu(obje, "Contactar"))
+                {
+                   JOptionPane.showMessageDialog(this, "Datos guardados");
+                   this.limpiar();
+                }
+                else
+                {
+                      JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                }
+              } 
+              catch (Exception ex) 
+              {
+                  JOptionPane.showMessageDialog(this, ex.getMessage());
+              }   
             }
             else
             {
-                  JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+             JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
             }
-          } 
-          catch (Exception ex) 
-          {
-              JOptionPane.showMessageDialog(this, ex.getMessage());
-          }   
-        }
-        else
-        {
-         JOptionPane.showMessageDialog(this, "Ingrese todos los datos para poder ingresarlos");
-         
         }
     }//GEN-LAST:event_btnTomarContactoActionPerformed
 
@@ -515,6 +526,16 @@ public class frmDenuncia extends javax.swing.JFrame {
         cmbAutoridad.setSelectedIndex(-1);
         cmbGenero.setSelectedIndex(-1);
         cmbTipoDenuncia.setSelectedIndex(-1);
+    }
+    
+    private void llenarComboBox() {        
+        DefaultComboBoxModel<Temas> modeEqui = new DefaultComboBoxModel<>();
+         for(Temas temp : new TemasCtrl().consTodo())
+         {
+             modeEqui.addElement(temp);
+         }
+         this.cmbTipoDenuncia.setModel((ComboBoxModel)modeEqui);
+         cmbTipoDenuncia.setSelectedIndex(-1);
     }
 
     /**
