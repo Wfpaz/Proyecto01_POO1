@@ -13,6 +13,7 @@ import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Departamentos;
 import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Municipios;
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -64,6 +65,9 @@ public class FrmInstitucion extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInst = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +94,6 @@ public class FrmInstitucion extends javax.swing.JFrame {
                 txtNombKeyTyped(evt);
             }
         });
-
         cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDepartamentoItemStateChanged(evt);
@@ -108,6 +111,19 @@ public class FrmInstitucion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkHabilitado)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtDireccion)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblDepartamento)
+                                .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblMunicipio)
+                                    .addGap(56, 56, 56))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cmbMunicipio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addComponent(lblCodigo)
                         .addComponent(lblDireccion)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,19 +131,10 @@ public class FrmInstitucion extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtNomb, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblNomb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(40, 40, 40)
+                            .addGap(24, 24, 24)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCorreo)))
-                        .addComponent(txtDireccion)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblDepartamento))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblMunicipio)
-                                .addComponent(cmbMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCorreo)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -256,6 +263,24 @@ public class FrmInstitucion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu2.setText("<- Atras");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Cerrar sesion");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,11 +319,13 @@ public class FrmInstitucion extends javax.swing.JFrame {
             while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
             for(Institucion temp: new InstitucionCtrl().consTodo())
             {
-              if(temp != null)
-              {
-                modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN()+"/"+temp.getMunicipioN(),temp.getEstadoS()});
-            
-              }
+
+               if(temp != null)
+               {
+                    modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+                    Limpiar();
+               }
+
             }
         }
         catch (Exception ex) 
@@ -352,7 +379,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
     public void Limpiar()
     {
     btnGuar.setVisible(true);
-      btnActualizar.setVisible(false);
+    btnActualizar.setVisible(false);
     txtCodigo.setText("");
     txtNomb.setText("");
     txtCorreo.setText("");
@@ -515,6 +542,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombKeyTyped
+
       char c= evt.getKeyChar();
       if(Character.isLetter(c));
       else if (Character.isSpace(c));
@@ -525,6 +553,19 @@ public class FrmInstitucion extends javax.swing.JFrame {
           System.out.println("Solo letras");
       }
     }//GEN-LAST:event_txtNombKeyTyped
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        frmAdmin obje = new frmAdmin();
+        obje.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        frmLogin obje = new frmLogin();
+        obje.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -569,6 +610,9 @@ public class FrmInstitucion extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkHabilitado;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
