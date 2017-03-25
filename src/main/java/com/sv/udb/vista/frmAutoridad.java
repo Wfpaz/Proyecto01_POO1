@@ -25,7 +25,8 @@ public class frmAutoridad extends javax.swing.JFrame {
     public frmAutoridad() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //Refresh();
+        btnActualizar.setVisible(false);
+        Refresh();
     }
 
     /**
@@ -59,20 +60,35 @@ public class frmAutoridad extends javax.swing.JFrame {
 
         tblAutoridad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Correo", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAutoridad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAutoridadMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAutoridad);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
 
         lblCodigo.setText("Codigo");
+
+        txtCodigo.setEditable(false);
 
         lblAutoriadaNomb.setText("Nombre Autoridad");
 
@@ -126,6 +142,11 @@ public class frmAutoridad extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +233,9 @@ public class frmAutoridad extends javax.swing.JFrame {
         txtAutoridadNomb.setText("");
         txtCorreo.setText("");
         txtAutoridadNomb.requestFocus();
+        btnGuardar.setVisible(true);
+        btnActualizar.setVisible(false);
+        chkHabilitado.setSelected(true);
     }
     public boolean verificar()
     {
@@ -224,6 +248,7 @@ public class frmAutoridad extends javax.swing.JFrame {
     }
     public void Refresh()
     {
+         chkHabilitado.setSelected(true);
         DefaultTableModel modelo = (DefaultTableModel)this.tblAutoridad.getModel();
         while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
         for (Autoridad temp: new AutoridadCtrl().consTodo())
@@ -303,6 +328,61 @@ public class frmAutoridad extends javax.swing.JFrame {
        }
        
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblAutoridadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAutoridadMouseClicked
+     int fila = tblAutoridad.getSelectedRow();
+     if(fila >=0)
+     {
+     Autoridad obj = (Autoridad) this.tblAutoridad.getValueAt(fila,0);
+     txtCodigo.setText(String.valueOf(obj.getCodi()));
+     txtAutoridadNomb.setText(obj.getNomb());
+     txtCorreo.setText(obj.getCorreo());
+     if(obj.getEstadoS().equals("Habilitado"))
+    {
+    this.chkHabilitado.setSelected(true);
+    }
+    else
+    {
+    this.chkHabilitado.setSelected(false);
+    }
+    btnGuardar.setVisible(false);
+    btnActualizar.setVisible(true);
+     }
+    }//GEN-LAST:event_tblAutoridadMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (verificar())
+        {
+            Autoridad obj = new Autoridad();
+            if (!txtCodigo.getText().isEmpty())
+            {
+                int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro en eliminar"+txtAutoridadNomb.getText()+"?");
+                if(resp == 0)
+                {
+                    obj.setCodi(Integer.parseInt(txtCodigo.getText()));
+                    obj.setEstado(false);
+                    if(new AutoridadCtrl().eliminar(obj))
+                    {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        Refresh();
+                        Limpiar();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Limpie los datos de la institucion anterior");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,9 +5,11 @@
  */
 package com.sv.udb.vista;
 
+import com.sv.udb.controlador.AutoridadCtrl;
 import com.sv.udb.controlador.CtrlMunicipios;
 import com.sv.udb.controlador.DepartamentosCtrl;
 import com.sv.udb.controlador.InstitucionCtrl;
+import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Departamentos;
 import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Municipios;
@@ -161,6 +163,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -453,6 +460,40 @@ public class FrmInstitucion extends javax.swing.JFrame {
     btnActualizar.setVisible(true);
     }
     }//GEN-LAST:event_tblInstMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       if (verificar())
+        {
+            Institucion obj = new Institucion();
+            if (!txtCodigo.getText().isEmpty())
+            {
+                int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro en eliminar"+txtNomb.getText()+"?");
+                if(resp == 0)
+                {
+                    obj.setCodigo(Integer.parseInt(txtCodigo.getText()));
+                    obj.setEstado(false);
+                    if(new InstitucionCtrl().elim(obj))
+                    {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        Refresh();
+                        Limpiar();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Limpie los datos de la institucion anterior");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

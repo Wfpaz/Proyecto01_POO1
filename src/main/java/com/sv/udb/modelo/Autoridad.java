@@ -35,10 +35,11 @@ public class Autoridad {
         this.estado = estado;
     }
 
-    public Autoridad(int codi, String nomb, String correo) {
+    public Autoridad(int codi, String nomb, String correo,String EstadoS) {
         this.codi = codi;
         this.nomb = nomb;
         this.correo = correo;
+        this.estadoS = EstadoS;
     }
 
     public Autoridad() {
