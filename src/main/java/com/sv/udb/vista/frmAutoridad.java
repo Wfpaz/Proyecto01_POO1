@@ -253,7 +253,11 @@ public class frmAutoridad extends javax.swing.JFrame {
         while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
         for (Autoridad temp: new AutoridadCtrl().consTodo())
         {
-        modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getEstadoS()});
+             if(temp != null)
+               {
+                    modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getEstadoS()});
+        
+               }
         }
     }
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
