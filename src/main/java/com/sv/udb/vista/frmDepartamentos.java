@@ -85,6 +85,11 @@ public class frmDepartamentos extends javax.swing.JFrame {
                 txtNombreDepaActionPerformed(evt);
             }
         });
+        txtNombreDepa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreDepaKeyTyped(evt);
+            }
+        });
 
         lblNombreDepa.setText("Nombre:");
 
@@ -320,6 +325,13 @@ int fila = this.tblDepa.getSelectedRow();
          JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder eliminarlo");    
         }
     }//GEN-LAST:event_btnEliDepaActionPerformed
+
+    private void txtNombreDepaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDepaKeyTyped
+        char k = evt.getKeyChar();
+        if(Character.isDigit(k)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreDepaKeyTyped
 
     /**
      * @param args the command line arguments

@@ -7,17 +7,19 @@ package com.sv.udb.vista;
 
 import com.sv.udb.controlador.AutoridadCtrl;
 import com.sv.udb.controlador.DenunciasCtrl;
+import com.sv.udb.controlador.InstitucionCtrl;
 import com.sv.udb.controlador.TemasCtrl;
 import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Denuncias;
+import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Temas;
-import java.time.LocalDate;
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,13 +35,10 @@ public class frmDenuncia extends javax.swing.JFrame {
         fechaHora();
         llenarComboBox();
         llenarComboBox2();
+        cargarTabla();
     }
     
-    private void fechaHora() {
-        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        
+    private void fechaHora() {        
         lblFechaHora.setText(fecha.format(now) + hora.format(now));
     }
 
@@ -93,11 +92,22 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         lblVictima.setText("Nombre victima");
 
+        txtVictima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVictimaKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Edad victima");
 
         txtEdadVictima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEdadVictimaActionPerformed(evt);
+            }
+        });
+        txtEdadVictima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEdadVictimaKeyTyped(evt);
             }
         });
 
@@ -109,10 +119,15 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         jLabel5.setText("Denuncia por");
 
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("Numero de telefono");
 
         cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
-        cmbGenero.setSelectedIndex(-1);
         cmbGenero.setToolTipText("");
 
         jLabel8.setText("Remitir a ");
@@ -300,6 +315,11 @@ public class frmDenuncia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblInstitucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInstitucionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblInstitucion);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -409,13 +429,13 @@ public class frmDenuncia extends javax.swing.JFrame {
              try 
              {
                 Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+                Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
                 Denuncias obje = new Denuncias();
                 String genero;
                 if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
 
                 obje.setNombVict(txtVictima.getText());
-                obje.setCodAuto(objeTema.getIdTema());
+                obje.setCodAuto(objeAuto.getCodi());
                 obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
                 obje.setCodTema(objeTema.getIdTema());
                 obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
@@ -448,11 +468,54 @@ public class frmDenuncia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarRemitirActionPerformed
 
     private void btnSoloArchivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoloArchivarActionPerformed
-        int SN;  
-        SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (SN == 0) {
-            
-        }
+        if (!"".equals(txtVictima.getText()) && cmbGenero.getSelectedIndex() != -1 && cmbTipoDenuncia.getSelectedIndex() != -1) {
+            int SN;  
+            SN = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere guardar el registro?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (SN == 0) {
+                try 
+                 {
+                    Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
+                    Denuncias obje = new Denuncias();
+                    String genero;
+                    if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; 
+                    else if("Femenino".equals(cmbGenero.getSelectedItem().toString()))  genero = "F";
+                    else genero = "";
+
+                    if (!"".equals(txtIdInst.getText())){
+                        obje.setCodInst(!"".equals(Integer.parseInt(txtIdInst.getText())) ? Integer.parseInt(txtIdInst.getText()) : 0);
+                    }
+
+                    if (!"".equals(txtTelefono.getText())) {
+                       obje.setEdad(!"".equals(Integer.parseInt(txtEdadVictima.getText())) ? Integer.parseInt(txtEdadVictima.getText()) : 0); 
+                    }
+                    
+                    if (!"".equals(txtTelefono.getText())) {
+                        obje.setNumTele(!"".equals(Integer.parseInt(txtTelefono.getText())) ? Integer.parseInt(txtTelefono.getText()) : 0);
+                    }
+
+                    obje.setNombVict(!"".equals(txtVictima.getText()) ? txtVictima.getText() : "");
+                    obje.setCodTema(!"".equals(objeTema.getIdTema()) ? objeTema.getIdTema() : 0);
+                    obje.setFecha(fecha.format(now)); 
+                    obje.setHora(hora.format(now));
+                    obje.setGenero(genero);                    
+                    obje.setViable(1);
+
+                    if(new DenunciasCtrl().guarDenu(obje, "Archivar"))
+                    {
+                       JOptionPane.showMessageDialog(this, "Datos guardados");
+                       this.limpiar();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+                    }
+                  } 
+                  catch (Exception ex) 
+                  {
+                      JOptionPane.showMessageDialog(this, ex.getMessage());
+                  } 
+            } 
+        } else JOptionPane.showMessageDialog(this, "Es obligatorio que rellene los campos Nombre, Genero y el Tema de denuncia como minimo, para realizar esta operación");
     }//GEN-LAST:event_btnSoloArchivarActionPerformed
 
     private void btnTomarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarContactoActionPerformed
@@ -464,7 +527,6 @@ public class frmDenuncia extends javax.swing.JFrame {
              try 
              {
                 Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
                 Denuncias obje = new Denuncias();
                 String genero;
                 if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
@@ -518,6 +580,40 @@ public class frmDenuncia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void tblInstitucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInstitucionMouseClicked
+        int fila = this.tblInstitucion.getSelectedRow();
+        if (fila >= 0) {
+            Institucion obje = (Institucion) this.tblInstitucion.getValueAt(fila, 0);
+            this.txtIdInst.setText(String.valueOf(obje.getCodigo()));
+            this.txtInstitucion.setText(obje.getNomb());
+        }
+    }//GEN-LAST:event_tblInstitucionMouseClicked
+
+    private void txtVictimaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVictimaKeyTyped
+        char k = evt.getKeyChar();
+        if(Character.isDigit(k)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtVictimaKeyTyped
+
+    private void txtEdadVictimaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadVictimaKeyTyped
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9'))) {
+            if (caracter != KeyEvent.VK_BACK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtEdadVictimaKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9'))) {
+            if (caracter != KeyEvent.VK_BACK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
     
     private void limpiar() {
         txtBuscar.setText("");
@@ -533,22 +629,34 @@ public class frmDenuncia extends javax.swing.JFrame {
     
     private void llenarComboBox() {        
         DefaultComboBoxModel<Temas> modeTema = new DefaultComboBoxModel<>();
-         for(Temas temp : new TemasCtrl().consTodo())
-         {
-             modeTema.addElement(temp);
-         }
+        new TemasCtrl().consTodo().forEach((temp) -> {
+            modeTema.addElement(temp);
+        });
          this.cmbTipoDenuncia.setModel((ComboBoxModel)modeTema);
          cmbTipoDenuncia.setSelectedIndex(-1);
     }
     
     private void llenarComboBox2() {        
         DefaultComboBoxModel<Autoridad> modeAuto = new DefaultComboBoxModel<>();
-         for(Autoridad temp : new AutoridadCtrl().consTodo())
-         {
-             modeAuto.addElement(temp);
-         }
+        new AutoridadCtrl().consTodo().forEach((temp) -> {
+            modeAuto.addElement(temp);
+        });
          this.cmbAutoridad.setModel((ComboBoxModel)modeAuto);
          cmbAutoridad.setSelectedIndex(-1);
+    }
+    
+    private void cargarTabla() {
+        try {
+            DefaultTableModel modelo = (DefaultTableModel)this.tblInstitucion.getModel();
+            while(modelo.getRowCount()>0){modelo.removeRow(0);} 
+            new InstitucionCtrl().consTodo().stream().filter((temp) -> (temp != null)).forEachOrdered((temp) -> {
+                modelo.addRow(new Object[]{temp,temp.getDepartamentoN()+" / "+ temp.getMunicipioN()});
+            });
+            limpiar();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 
     /**
