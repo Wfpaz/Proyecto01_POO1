@@ -26,6 +26,7 @@ public class frmMunicipios extends javax.swing.JFrame {
     public frmMunicipios() {
         initComponents();
         this.refreshTblMuni();
+        this.llenarComboDepa();
         txtIdMuni.setVisible(false);
         btnEliMuni.setVisible(false);
         btnEditMuni.setVisible(false);
