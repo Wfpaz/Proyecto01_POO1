@@ -19,7 +19,7 @@ import java.util.List;
  * @author Walter
  */
 public class TemasCtrl {
-    public boolean guarDepart(Temas obje){
+    public boolean guarTema(Temas obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
@@ -52,11 +52,11 @@ public class TemasCtrl {
         }
         return resp;   
     }
-    public boolean eliminarDepa(int id){
+    public boolean elimTema(int id){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("DELETE FROM tema_denuncia WHERE id_dept = ?");
+              PreparedStatement cmd = cn.prepareStatement("DELETE FROM tema_denuncia WHERE id_tema_denu = ?");
             cmd.setString(1,String.valueOf(id));         
             cmd.executeUpdate();
             resp=true;
@@ -86,11 +86,11 @@ public class TemasCtrl {
         return resp;   
     }
     
-    public boolean editarDepa(Temas obje){
+    public boolean editTema(Temas obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("UPDATE tema_denuncia Set dept = ? WHERE id_dept = ?");
+              PreparedStatement cmd = cn.prepareStatement("UPDATE tema_denuncia SET tema_denu = ? WHERE id_tema_denu = ?");
              cmd.setString(1, obje.getTema());
             cmd.setString(2, String.valueOf(obje.getIdTema()));
             cmd.executeUpdate();
@@ -162,7 +162,7 @@ public class TemasCtrl {
         Temas resp = new Temas();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from tema_denuncia where id_dept = ?");
+            PreparedStatement cmd = cn.prepareStatement("select * from tema_denuncia where id_tema_denu = ?");
              cmd.setString(1, String.valueOf(id));
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
