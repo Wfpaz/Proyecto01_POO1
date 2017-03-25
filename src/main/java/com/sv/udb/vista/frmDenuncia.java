@@ -236,6 +236,11 @@ public class frmDenuncia extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("Limpiar campos");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -464,7 +469,7 @@ public class frmDenuncia extends javax.swing.JFrame {
             if(new DenunciasCtrl().guarDenu(obje, "Contactar"))
             {
                JOptionPane.showMessageDialog(this, "Datos guardados");
-               this.limpiar();                
+               this.limpiar();
             }
             else
             {
@@ -482,6 +487,35 @@ public class frmDenuncia extends javax.swing.JFrame {
          
         }
     }//GEN-LAST:event_btnTomarContactoActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        int SN;  
+        SN = JOptionPane.showConfirmDialog(null, "Seguro desea limpiar el formulario?", "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (SN == 0) {
+            txtBuscar.setText("");
+            txtEdadVictima.setText("");
+            txtIdInst.setText("");
+            txtInstitucion.setText("");
+            txtTelefono.setText("");
+            txtVictima.setText("");
+            cmbAutoridad.setSelectedIndex(-1);
+            cmbGenero.setSelectedIndex(-1);
+            cmbTipoDenuncia.setSelectedIndex(-1);
+        }
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    
+    private void limpiar() {
+        txtBuscar.setText("");
+        txtEdadVictima.setText("");
+        txtIdInst.setText("");
+        txtInstitucion.setText("");
+        txtTelefono.setText("");
+        txtVictima.setText("");
+        cmbAutoridad.setSelectedIndex(-1);
+        cmbGenero.setSelectedIndex(-1);
+        cmbTipoDenuncia.setSelectedIndex(-1);
+    }
 
     /**
      * @param args the command line arguments
@@ -550,9 +584,4 @@ public class frmDenuncia extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtVictima;
     // End of variables declaration//GEN-END:variables
-
-    private void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
