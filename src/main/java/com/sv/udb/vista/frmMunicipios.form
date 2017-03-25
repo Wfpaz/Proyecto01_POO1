@@ -116,6 +116,7 @@
         <Component class="javax.swing.JTextField" name="txtNombreMuni">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreMuniActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreMuniKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombreDepa">

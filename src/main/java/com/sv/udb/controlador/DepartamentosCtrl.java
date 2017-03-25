@@ -156,7 +156,7 @@ public class DepartamentosCtrl {
         return resp;
         
     }
-    
+   
      public Departamentos consUno(int id)
     {
         Departamentos resp = new Departamentos();

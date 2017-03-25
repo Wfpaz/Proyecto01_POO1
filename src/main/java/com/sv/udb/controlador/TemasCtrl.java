@@ -5,7 +5,7 @@
  */
 package com.sv.udb.controlador;
 
-import com.sv.udb.modelo.Municipios;
+import com.sv.udb.modelo.Temas;
 import com.sv.udb.recursos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,22 +16,21 @@ import java.util.List;
 
 /**
  *
- * @author oscar
+ * @author Walter
  */
-public class CtrlMunicipios {
-     public boolean guarMuni(Municipios obje){
+public class TemasCtrl {
+    public boolean guarTema(Temas obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("INSERT INTO municipio VALUES(NULL,?,?)");
-            cmd.setString(1, obje.getMuni());
-            cmd.setString(2, String.valueOf(obje.getIdDept()));
+              PreparedStatement cmd = cn.prepareStatement("INSERT INTO tema_denuncia VALUES(NULL,?)");
+            cmd.setString(1, obje.getTema());
             cmd.executeUpdate();
             resp=true;
             
         } catch (Exception ex) 
         {
-            System.err.println("Error al guardar departamento: " + ex.getMessage());
+            System.err.println("Error al guardar: " + ex.getMessage());
         }
         finally
         {
@@ -53,18 +52,18 @@ public class CtrlMunicipios {
         }
         return resp;   
     }
-    public boolean eliminarMuni(int id){
+    public boolean elimTema(int id){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("DELETE FROM municipio WHERE id_muni = ?");
+              PreparedStatement cmd = cn.prepareStatement("DELETE FROM tema_denuncia WHERE id_tema_denu = ?");
             cmd.setString(1,String.valueOf(id));         
             cmd.executeUpdate();
             resp=true;
             
         } catch (Exception ex) 
         {
-            System.err.println("Error al eliminar municipio: " + ex.getMessage());
+            System.err.println("Error al eliminar: " + ex.getMessage());
         }
         finally
         {
@@ -87,20 +86,19 @@ public class CtrlMunicipios {
         return resp;   
     }
     
-    public boolean editarMuni(Municipios obje){
+    public boolean editTema(Temas obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("UPDATE municipio Set muni = ?, id_dept = ? WHERE id_muni = ?");
-             cmd.setString(1, obje.getMuni());
-            cmd.setString(2, String.valueOf(obje.getIdDept()));
-            cmd.setString(3, String.valueOf(obje.getIdMuni()));
+              PreparedStatement cmd = cn.prepareStatement("UPDATE tema_denuncia SET tema_denu = ? WHERE id_tema_denu = ?");
+             cmd.setString(1, obje.getTema());
+            cmd.setString(2, String.valueOf(obje.getIdTema()));
             cmd.executeUpdate();
             resp=true;
             
         } catch (Exception ex) 
         {
-            System.err.println("Error al editar municipio: " + ex.getMessage());
+            System.err.println("Error al editar: " + ex.getMessage());
         }
         finally
         {
@@ -124,51 +122,16 @@ public class CtrlMunicipios {
     }
     
     
-    public List<Municipios> consTodo()
+    public List<Temas> consTodo()
     {
-        List<Municipios> resp = new ArrayList();
+        List<Temas> resp = new ArrayList();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio");
+            PreparedStatement cmd = cn.prepareStatement("select * from tema_denuncia");
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp.add(new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3)));
-            }
-        } catch (Exception err) 
-        {
-            err.printStackTrace();
-        }
-        finally
-        {
-            try {
-                 if(cn!=null)
-                {
-                    if(!cn.isClosed())
-                    {
-                        cn.close();
-                    }
-                }
-                
-            } catch (SQLException err) {
-                err.printStackTrace();
-            }
-            
-        }
-        return resp;
-        
-    }
-    public Municipios consUno(int id)
-    {
-        Municipios resp = new Municipios();
-        Connection cn =new Conexion().getConn();
-        try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_muni = ?");
-             cmd.setString(1, String.valueOf(id));
-            ResultSet rs = cmd.executeQuery();
-            while(rs.next())
-            {
-                resp = new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3));
+                resp.add(new Temas(rs.getInt(1),rs.getString(2)));
             }
         } catch (Exception err) 
         {
@@ -194,17 +157,17 @@ public class CtrlMunicipios {
         
     }
     
-     public List<Municipios> consUnoV2(int id)
+     public Temas consUno(int id)
     {
-        List<Municipios> resp = new ArrayList<>();
+        Temas resp = new Temas();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_dept = ?");
+            PreparedStatement cmd = cn.prepareStatement("select * from tema_denuncia where id_tema_denu = ?");
              cmd.setString(1, String.valueOf(id));
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-               resp.add(new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3)));
+                resp = new Temas(rs.getInt(1),rs.getString(2));
             }
         } catch (Exception err) 
         {
@@ -230,4 +193,3 @@ public class CtrlMunicipios {
         
     }
 }
-

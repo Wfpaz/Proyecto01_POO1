@@ -85,6 +85,11 @@ public class frmDepartamentos extends javax.swing.JFrame {
                 txtNombreDepaActionPerformed(evt);
             }
         });
+        txtNombreDepa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreDepaKeyTyped(evt);
+            }
+        });
 
         lblNombreDepa.setText("Nombre:");
 
@@ -287,9 +292,6 @@ int fila = this.tblDepa.getSelectedRow();
             
             btnEditDepa.setVisible(true);
         btnEliDepa.setVisible(true);
-        btnGuarDepa.setVisible(false);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDepaMouseClicked
 
     private void btnEliDepaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliDepaActionPerformed
         if(!(txtIdDepa.getText().equals("")))
@@ -326,17 +328,6 @@ int fila = this.tblDepa.getSelectedRow();
         }
     }//GEN-LAST:event_btnEliDepaActionPerformed
 
-    private void btnLimpiarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDepActionPerformed
-       this.limpiar();
-    }//GEN-LAST:event_btnLimpiarDepActionPerformed
-
-    private void txtNombreDepaKeyTyped(java.awt.event.KeyEvent evt) {                                       
-        char k = evt.getKeyChar();
-        if(Character.isDigit(k)) {
-            evt.consume();
-        }
-    }
-    
     /**
      * @param args the command line arguments
      */

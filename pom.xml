@@ -30,8 +30,8 @@
             <timezone>-6:00</timezone>
         </developer>
         <developer>
-            <id>nombre</id>
-            <email>correo</email>
+            <id>Luis Chévez</id>
+            <email>luigichevez@gmail.com</email>
             <organization>Freelancer</organization>
             <roles>
                 <role>Java Developer</role>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.0.8</version>
+            <version>6.0.3</version>
         </dependency>
         <dependency>
             <groupId>unknown.binary</groupId>

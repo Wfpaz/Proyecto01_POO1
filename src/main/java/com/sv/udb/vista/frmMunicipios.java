@@ -69,7 +69,7 @@ public class frmMunicipios extends javax.swing.JFrame {
           
         }
         this.cmbDepa.setModel((ComboBoxModel)modEqui);
-      
+        this.cmbDepa.setSelectedIndex(-1);
         
     }
     @SuppressWarnings("unchecked")
@@ -103,6 +103,11 @@ public class frmMunicipios extends javax.swing.JFrame {
         txtNombreMuni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreMuniActionPerformed(evt);
+            }
+        });
+        txtNombreMuni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreMuniKeyTyped(evt);
             }
         });
 
@@ -358,17 +363,6 @@ public class frmMunicipios extends javax.swing.JFrame {
             btnGuarMuni.setVisible(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblMuniMouseClicked
-
-    private void btnLimpiarMuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarMuniActionPerformed
-        this.limpiar();
-    }//GEN-LAST:event_btnLimpiarMuniActionPerformed
-
-  private void txtNombreMuniKeyTyped(java.awt.event.KeyEvent evt) {                                       
-        char k = evt.getKeyChar();
-        if(Character.isDigit(k)) {
-            evt.consume();
-        }
-    }
     /**
      * @param args the command line arguments
      */
