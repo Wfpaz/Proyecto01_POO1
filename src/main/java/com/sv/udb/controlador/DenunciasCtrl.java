@@ -25,7 +25,7 @@ public class DenunciasCtrl {
             if (null != opci) switch (opci) {
                 case "Archivar":
                     
-                    PreparedStatement cons = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, id_auto, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement cons = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, id_auto, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
                     cons.setString(1, !"".equals(obje.getFecha()) ? obje.getFecha() : null);
                     cons.setString(2, !"".equals(obje.getHora()) ? obje.getHora() : null);
                     cons.setString(3, !"".equals(obje.getNombVict()) ? obje.getNombVict() : null);
@@ -42,7 +42,7 @@ public class DenunciasCtrl {
                     break;
                 case "Remitir":
                     
-                    PreparedStatement cmd = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, id_auto, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement cmd = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, id_auto, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
                     cmd.setString(1, obje.getFecha());
                     cmd.setString(2, obje.getHora());
                     cmd.setString(3, obje.getNombVict());
@@ -52,13 +52,12 @@ public class DenunciasCtrl {
                     cmd.setString(7, String.valueOf(obje.getCodTema()));
                     cmd.setString(8, String.valueOf(obje.getCodInst()));
                     cmd.setString(9, String.valueOf(obje.getCodAuto()));
-                    cmd.setString(10, "1");
                     cmd.executeUpdate();
                     resp=true;
                     break;
                 case "Contactar":
                     
-                    PreparedStatement sql = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement sql = cn.prepareStatement("INSERT INTO denuncia(fecha_denu, hora_denu, nom_vict, edad_vict, gene_vict, nume_vict, id_tema_denu, id_inst, viable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
                     sql.setString(1, obje.getFecha());
                     sql.setString(2, obje.getHora());
                     sql.setString(3, obje.getNombVict());

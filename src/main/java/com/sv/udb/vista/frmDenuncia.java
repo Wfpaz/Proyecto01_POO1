@@ -7,17 +7,18 @@ package com.sv.udb.vista;
 
 import com.sv.udb.controlador.AutoridadCtrl;
 import com.sv.udb.controlador.DenunciasCtrl;
+import com.sv.udb.controlador.InstitucionCtrl;
 import com.sv.udb.controlador.TemasCtrl;
 import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Denuncias;
+import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Temas;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,13 +34,10 @@ public class frmDenuncia extends javax.swing.JFrame {
         fechaHora();
         llenarComboBox();
         llenarComboBox2();
+        cargarTabla();
     }
     
-    private void fechaHora() {
-        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        
+    private void fechaHora() {        
         lblFechaHora.setText(fecha.format(now) + hora.format(now));
     }
 
@@ -300,6 +298,11 @@ public class frmDenuncia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblInstitucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInstitucionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblInstitucion);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -409,13 +412,13 @@ public class frmDenuncia extends javax.swing.JFrame {
              try 
              {
                 Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
+                Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
                 Denuncias obje = new Denuncias();
                 String genero;
                 if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
 
                 obje.setNombVict(txtVictima.getText());
-                obje.setCodAuto(objeTema.getIdTema());
+                obje.setCodAuto(objeAuto.getCodi());
                 obje.setCodInst(Integer.parseInt(txtIdInst.getText()));
                 obje.setCodTema(objeTema.getIdTema());
                 obje.setEdad(Integer.parseInt(txtEdadVictima.getText()));
@@ -464,7 +467,6 @@ public class frmDenuncia extends javax.swing.JFrame {
              try 
              {
                 Temas objeTema = (Temas)this.cmbTipoDenuncia.getSelectedItem();
-    //            Autoridad objeAuto = (Autoridad)this.cmbAutoridad.getSelectedItem();
                 Denuncias obje = new Denuncias();
                 String genero;
                 if ("Masculino".equals(cmbGenero.getSelectedItem().toString())) genero = "M"; else  genero = "F";
@@ -518,6 +520,15 @@ public class frmDenuncia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void tblInstitucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInstitucionMouseClicked
+        int fila = this.tblInstitucion.getSelectedRow();
+        if (fila >= 0) {
+            Institucion obje = (Institucion) this.tblInstitucion.getValueAt(fila, 0);
+            this.txtIdInst.setText(String.valueOf(obje.getCodigo()));
+            this.txtInstitucion.setText(obje.getNomb());
+        }
+    }//GEN-LAST:event_tblInstitucionMouseClicked
+
     
     private void limpiar() {
         txtBuscar.setText("");
@@ -533,22 +544,34 @@ public class frmDenuncia extends javax.swing.JFrame {
     
     private void llenarComboBox() {        
         DefaultComboBoxModel<Temas> modeTema = new DefaultComboBoxModel<>();
-         for(Temas temp : new TemasCtrl().consTodo())
-         {
-             modeTema.addElement(temp);
-         }
+        new TemasCtrl().consTodo().forEach((temp) -> {
+            modeTema.addElement(temp);
+        });
          this.cmbTipoDenuncia.setModel((ComboBoxModel)modeTema);
          cmbTipoDenuncia.setSelectedIndex(-1);
     }
     
     private void llenarComboBox2() {        
         DefaultComboBoxModel<Autoridad> modeAuto = new DefaultComboBoxModel<>();
-         for(Autoridad temp : new AutoridadCtrl().consTodo())
-         {
-             modeAuto.addElement(temp);
-         }
+        new AutoridadCtrl().consTodo().forEach((temp) -> {
+            modeAuto.addElement(temp);
+        });
          this.cmbAutoridad.setModel((ComboBoxModel)modeAuto);
          cmbAutoridad.setSelectedIndex(-1);
+    }
+    
+    private void cargarTabla() {
+        try {
+            DefaultTableModel modelo = (DefaultTableModel)this.tblInstitucion.getModel();
+            while(modelo.getRowCount()>0){modelo.removeRow(0);} 
+            new InstitucionCtrl().consTodo().stream().filter((temp) -> (temp != null)).forEachOrdered((temp) -> {
+                modelo.addRow(new Object[]{temp,temp.getDepartamentoN()+" / "+ temp.getMunicipioN()});
+            });
+            limpiar();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 
     /**
