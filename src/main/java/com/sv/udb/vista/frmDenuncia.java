@@ -13,6 +13,7 @@ import com.sv.udb.modelo.Autoridad;
 import com.sv.udb.modelo.Denuncias;
 import com.sv.udb.modelo.Institucion;
 import com.sv.udb.modelo.Temas;
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ComboBoxModel;
@@ -91,11 +92,22 @@ public class frmDenuncia extends javax.swing.JFrame {
 
         lblVictima.setText("Nombre victima");
 
+        txtVictima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVictimaKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Edad victima");
 
         txtEdadVictima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEdadVictimaActionPerformed(evt);
+            }
+        });
+        txtEdadVictima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEdadVictimaKeyTyped(evt);
             }
         });
 
@@ -106,6 +118,12 @@ public class frmDenuncia extends javax.swing.JFrame {
         jLabel4.setText("Denuncia a");
 
         jLabel5.setText("Denuncia por");
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Numero de telefono");
 
@@ -570,6 +588,31 @@ public class frmDenuncia extends javax.swing.JFrame {
             this.txtInstitucion.setText(obje.getNomb());
         }
     }//GEN-LAST:event_tblInstitucionMouseClicked
+
+    private void txtVictimaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVictimaKeyTyped
+        char k = evt.getKeyChar();
+        if(Character.isDigit(k)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtVictimaKeyTyped
+
+    private void txtEdadVictimaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadVictimaKeyTyped
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9'))) {
+            if (caracter != KeyEvent.VK_BACK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtEdadVictimaKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9'))) {
+            if (caracter != KeyEvent.VK_BACK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     
     private void limpiar() {

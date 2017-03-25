@@ -98,7 +98,7 @@ public class frmTemas extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +172,12 @@ public class frmTemas extends javax.swing.JFrame {
         txtCodigo.setEnabled(false);
 
         jLabel2.setText("Tema de denuncia");
+
+        txtTema.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTemaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -332,6 +338,13 @@ public class frmTemas extends javax.swing.JFrame {
             this.txtTema.setText(obje.getTema());
         }
     }//GEN-LAST:event_tblTemaMouseClicked
+
+    private void txtTemaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTemaKeyTyped
+        char k = evt.getKeyChar();
+        if(Character.isDigit(k)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTemaKeyTyped
 
     /**
      * @param args the command line arguments
