@@ -68,7 +68,7 @@ public class frmMunicipios extends javax.swing.JFrame {
           
         }
         this.cmbDepa.setModel((ComboBoxModel)modEqui);
-      
+        this.cmbDepa.setSelectedIndex(-1);
         
     }
     @SuppressWarnings("unchecked")
