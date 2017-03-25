@@ -101,6 +101,11 @@ public class frmDepartamentos extends javax.swing.JFrame {
         });
 
         btnLimpiarDep.setText("Limpiar");
+        btnLimpiarDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarDepActionPerformed(evt);
+            }
+        });
 
         btnEliDepa.setText("Eliminar");
         btnEliDepa.addActionListener(new java.awt.event.ActionListener() {
@@ -287,9 +292,6 @@ int fila = this.tblDepa.getSelectedRow();
             
             btnEditDepa.setVisible(true);
         btnEliDepa.setVisible(true);
-        btnGuarDepa.setVisible(false);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDepaMouseClicked
 
     private void btnEliDepaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliDepaActionPerformed
         if(!(txtIdDepa.getText().equals("")))
@@ -325,13 +327,6 @@ int fila = this.tblDepa.getSelectedRow();
          JOptionPane.showMessageDialog(this, "Seleccione un equipo para poder eliminarlo");    
         }
     }//GEN-LAST:event_btnEliDepaActionPerformed
-
-    private void txtNombreDepaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDepaKeyTyped
-        char k = evt.getKeyChar();
-        if(Character.isDigit(k)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombreDepaKeyTyped
 
     /**
      * @param args the command line arguments

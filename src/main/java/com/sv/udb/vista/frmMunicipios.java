@@ -35,6 +35,7 @@ public class frmMunicipios extends javax.swing.JFrame {
     
     public void limpiar()
     {
+        txtIdMuni.setText("");
         txtNombreMuni.setText("");
         btnEliMuni.setVisible(false);
         btnEditMuni.setVisible(false);
@@ -120,6 +121,11 @@ public class frmMunicipios extends javax.swing.JFrame {
         });
 
         btnLimpiarMuni.setText("Limpiar");
+        btnLimpiarMuni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarMuniActionPerformed(evt);
+            }
+        });
 
         btnEliMuni.setText("Eliminar");
         btnEliMuni.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +287,7 @@ public class frmMunicipios extends javax.swing.JFrame {
 
                 if(new CtrlMunicipios().editarMuni(obje))
                 {
-                    JOptionPane.showMessageDialog(this, "El Departamento ha sido editado");
+                    JOptionPane.showMessageDialog(this, "El municipio ha sido editado");
                     this.limpiar();
                     this.refreshTblMuni();
 
@@ -306,7 +312,7 @@ public class frmMunicipios extends javax.swing.JFrame {
     private void btnEliMuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliMuniActionPerformed
         if(!(txtIdMuni.getText().equals("")))
         {
-            if (JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar este Departamento?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            if (JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar este municipio?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
             {
                 try
                 {
@@ -314,7 +320,7 @@ public class frmMunicipios extends javax.swing.JFrame {
 
                     if(new CtrlMunicipios().eliminarMuni(id))
                     {
-                        JOptionPane.showMessageDialog(this, "El departamento ha sido eliminado");
+                        JOptionPane.showMessageDialog(this, "El municipio ha sido eliminado");
                         this.limpiar();
                         this.refreshTblMuni();
 
@@ -357,14 +363,6 @@ public class frmMunicipios extends javax.swing.JFrame {
             btnGuarMuni.setVisible(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblMuniMouseClicked
-
-    private void txtNombreMuniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMuniKeyTyped
-        char k = evt.getKeyChar();
-        if(Character.isDigit(k)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombreMuniKeyTyped
-
     /**
      * @param args the command line arguments
      */

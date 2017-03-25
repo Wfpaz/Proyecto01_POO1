@@ -5,7 +5,7 @@
  */
 package com.sv.udb.controlador;
 
-import com.sv.udb.modelo.Municipios;
+import com.sv.udb.modelo.Usuarios;
 import com.sv.udb.recursos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,20 +18,25 @@ import java.util.List;
  *
  * @author oscar
  */
-public class CtrlMunicipios {
-     public boolean guarMuni(Municipios obje){
+public class CtrlUsuarios {
+     public boolean guarUsu(Usuarios obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("INSERT INTO municipio VALUES(NULL,?,?)");
-            cmd.setString(1, obje.getMuni());
-            cmd.setString(2, String.valueOf(obje.getIdDept()));
+             
+              PreparedStatement cmd = cn.prepareStatement("INSERT INTO usuarios VALUES(NULL,?,?,?,?,?)");
+            cmd.setString(1, String.valueOf(obje.getIdTipoUsu()));
+              cmd.setString(2, obje.getUsuario());            
+            cmd.setString(3, obje.getNombres());
+            cmd.setString(4, obje.getApellidos());
+            cmd.setString(5, new CtrlContras().encrypt(obje.getContra()));
+            
             cmd.executeUpdate();
             resp=true;
             
         } catch (Exception ex) 
         {
-            System.err.println("Error al guardar departamento: " + ex.getMessage());
+            System.err.println("Error al guardar Usuario: " + ex.getMessage());
         }
         finally
         {
@@ -53,11 +58,11 @@ public class CtrlMunicipios {
         }
         return resp;   
     }
-    public boolean eliminarMuni(int id){
+    public boolean eliminarUsu(int id){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("DELETE FROM municipio WHERE id_muni = ?");
+              PreparedStatement cmd = cn.prepareStatement("DELETE FROM usuarios WHERE id_usuario = ?");
             cmd.setString(1,String.valueOf(id));         
             cmd.executeUpdate();
             resp=true;
@@ -87,20 +92,23 @@ public class CtrlMunicipios {
         return resp;   
     }
     
-    public boolean editarMuni(Municipios obje){
+    public boolean editarUsu(Usuarios obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-              PreparedStatement cmd = cn.prepareStatement("UPDATE municipio Set muni = ?, id_dept = ? WHERE id_muni = ?");
-             cmd.setString(1, obje.getMuni());
-            cmd.setString(2, String.valueOf(obje.getIdDept()));
-            cmd.setString(3, String.valueOf(obje.getIdMuni()));
+              PreparedStatement cmd = cn.prepareStatement("UPDATE usuarios Set usuario = ?, id_tipo_usu = ?, nombre = ?, apellido = ? WHERE id_usuario = ?");
+             cmd.setString(1, obje.getUsuario());
+             cmd.setString(2, String.valueOf(obje.getIdTipoUsu()));             
+            cmd.setString(3, obje.getNombres());
+            cmd.setString(4, obje.getApellidos());
+            cmd.setString(5, String.valueOf(obje.getIdUsuario()));
+            
             cmd.executeUpdate();
             resp=true;
             
         } catch (Exception ex) 
         {
-            System.err.println("Error al editar municipio: " + ex.getMessage());
+            System.err.println("Error al editar Usuario: " + ex.getMessage());
         }
         finally
         {
@@ -124,51 +132,16 @@ public class CtrlMunicipios {
     }
     
     
-    public List<Municipios> consTodo()
+    public List<Usuarios> consTodo()
     {
-        List<Municipios> resp = new ArrayList();
+        List<Usuarios> resp = new ArrayList();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio");
+            PreparedStatement cmd = cn.prepareStatement("select * from usuarios");
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp.add(new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3)));
-            }
-        } catch (Exception err) 
-        {
-            err.printStackTrace();
-        }
-        finally
-        {
-            try {
-                 if(cn!=null)
-                {
-                    if(!cn.isClosed())
-                    {
-                        cn.close();
-                    }
-                }
-                
-            } catch (SQLException err) {
-                err.printStackTrace();
-            }
-            
-        }
-        return resp;
-        
-    }
-    public Municipios consUno(int id)
-    {
-        Municipios resp = new Municipios();
-        Connection cn =new Conexion().getConn();
-        try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_muni = ?");
-             cmd.setString(1, String.valueOf(id));
-            ResultSet rs = cmd.executeQuery();
-            while(rs.next())
-            {
-                resp = new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3));
+                resp.add(new Usuarios(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
             }
         } catch (Exception err) 
         {
@@ -194,17 +167,17 @@ public class CtrlMunicipios {
         
     }
     
-     public List<Municipios> consUnoV2(int id)
+     public Usuarios consUno(int id)
     {
-        List<Municipios> resp = new ArrayList<>();
+        Usuarios resp = new Usuarios();
         Connection cn =new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("select * from municipio where id_dept = ?");
+            PreparedStatement cmd = cn.prepareStatement("select * from usuarios where id_usuario = ?");
              cmd.setString(1, String.valueOf(id));
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-               resp.add(new Municipios(rs.getInt(1),rs.getString(2),rs.getInt(3)));
+                resp = new Usuarios(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
             }
         } catch (Exception err) 
         {
@@ -229,5 +202,5 @@ public class CtrlMunicipios {
         return resp;
         
     }
+    
 }
-
