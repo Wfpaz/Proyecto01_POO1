@@ -288,7 +288,11 @@ public class FrmInstitucion extends javax.swing.JFrame {
             while(modelo.getRowCount()>0){modelo.removeRow(0);} //Limpiar modelo
             for(Institucion temp: new InstitucionCtrl().consTodo())
             {
-               modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+              if(temp != null)
+              {
+                modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+            
+              }
             }
         }
         catch (Exception ex) 
