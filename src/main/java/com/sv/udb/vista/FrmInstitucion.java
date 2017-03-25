@@ -273,8 +273,9 @@ public class FrmInstitucion extends javax.swing.JFrame {
     {
     boolean resp=false;
     if(!txtNomb.getText().trim().isEmpty() && !txtCorreo.getText().trim().isEmpty() 
-       && !txtDireccion.getText().trim().isEmpty()&&cmbDepartamento.getSelectedIndex() != -1 
-       && cmbMunicipio.getSelectedIndex() != -1)
+       && !txtDireccion.getText().trim().isEmpty()&&(cmbDepartamento.getSelectedIndex() != -1
+            || cmbDepartamento.getSelectedIndex() != 0 )
+       && ( cmbMunicipio.getSelectedIndex() != -1|| cmbMunicipio.getSelectedIndex() != 0))
     {
     resp=true;
     }
