@@ -322,7 +322,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
 
                if(temp != null)
                {
-                    modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN(),temp.getMunicipioN(),temp.getEstadoS()});
+                    modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getDireccion(),temp.getDepartamentoN()+"/"+temp.getMunicipioN(),temp.getEstadoS()});
                     Limpiar();
                }
 
