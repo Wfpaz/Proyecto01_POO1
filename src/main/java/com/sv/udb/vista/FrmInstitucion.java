@@ -85,6 +85,12 @@ public class FrmInstitucion extends javax.swing.JFrame {
 
         txtCodigo.setEditable(false);
 
+        txtNomb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombKeyTyped(evt);
+            }
+        });
+
         cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDepartamentoItemStateChanged(evt);
@@ -507,6 +513,18 @@ public class FrmInstitucion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombKeyTyped
+      char c= evt.getKeyChar();
+      if(Character.isLetter(c));
+      else if (Character.isSpace(c));
+      else if (Character.isISOControl(c));
+      else
+      {
+      evt.consume();
+          System.out.println("Solo letras");
+      }
+    }//GEN-LAST:event_txtNombKeyTyped
 
     /**
      * @param args the command line arguments

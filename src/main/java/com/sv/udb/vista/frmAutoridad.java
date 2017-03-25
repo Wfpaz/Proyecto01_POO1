@@ -92,6 +92,12 @@ public class frmAutoridad extends javax.swing.JFrame {
 
         lblAutoriadaNomb.setText("Nombre Autoridad");
 
+        txtAutoridadNomb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAutoridadNombKeyTyped(evt);
+            }
+        });
+
         lblCorreo.setText("Correo");
 
         chkHabilitado.setText("Habilitado");
@@ -388,6 +394,18 @@ public class frmAutoridad extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Llene todos los datos porfavor");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtAutoridadNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutoridadNombKeyTyped
+     char c= evt.getKeyChar();
+      if(Character.isLetter(c));
+      else if (Character.isSpace(c));
+      else if (Character.isISOControl(c));
+      else
+      {
+      evt.consume();
+          System.out.println("Solo letras");
+      }
+    }//GEN-LAST:event_txtAutoridadNombKeyTyped
 
     /**
      * @param args the command line arguments
