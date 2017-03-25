@@ -256,7 +256,7 @@ public class frmAutoridad extends javax.swing.JFrame {
              if(temp != null)
                {
                     modelo.addRow(new Object[]{temp,temp.getCorreo(),temp.getEstadoS()});
-        
+                    Limpiar();
                }
         }
     }

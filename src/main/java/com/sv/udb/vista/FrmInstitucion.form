@@ -119,6 +119,25 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="chkHabilitado" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtDireccion" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblDepartamento" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbDepartamento" min="-2" pref="109" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="lblMunicipio" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="cmbMunicipio" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                               <Component id="lblCodigo" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtCodigo" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
@@ -127,22 +146,10 @@
                                       <Component id="txtNomb" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblNomb" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtCorreo" min="-2" pref="84" max="-2" attributes="0"/>
+                                      <Component id="txtCorreo" min="-2" pref="100" max="-2" attributes="0"/>
                                       <Component id="lblCorreo" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="txtDireccion" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cmbDepartamento" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
-                                      <Component id="lblDepartamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblMunicipio" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmbMunicipio" min="-2" pref="99" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
