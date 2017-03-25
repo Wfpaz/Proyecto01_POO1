@@ -410,6 +410,7 @@ public class FrmInstitucion extends javax.swing.JFrame {
                {
                 JOptionPane.showMessageDialog(null, "Modificado");
                 Refresh();
+                Limpiar();
                }
                else
                {
