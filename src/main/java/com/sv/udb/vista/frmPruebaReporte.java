@@ -62,7 +62,7 @@ public class frmPruebaReporte extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        GenerarReportes obje = new GenerarReportes();
-       obje.reporteDenuncias(1, "2017-03-04", "2017-03-06");
+       obje.reporteDenuncias();
        
     }//GEN-LAST:event_jButton1ActionPerformed
 

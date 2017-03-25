@@ -21,23 +21,18 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GenerarReportes {
     
-    public void reporteDenuncias(int idTipoDenu,String fechaUno,String fechaDos)
+    public void reporteDenuncias()
     {
         try {
-            Conexion objeCon = new Conexion();
-             Map parametro = new HashMap();            
-            parametro.put("idTipoDenu", idTipoDenu);
-            parametro.put("fechaUno",fechaUno );
-            parametro.put("fechaDos", fechaDos);
-            JasperReport reporte = (JasperReport)JRLoader.loadObject("\\reportes\\reportTipodenuncia.jasper");
+            JasperReport reporte = (JasperReport)JRLoader.loadObjectFromFile("reporte1.jasper");
            
             
-            JasperPrint j = JasperFillManager.fillReport(reporte, parametro);
+            JasperPrint j = JasperFillManager.fillReport(reporte, null, new Conexion().getConn());
           JasperViewer jv = new JasperViewer(j,false);
           jv.setTitle("Reporte de denuncia por fecha y tipo");
           jv.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Error al crear el reporte");
+            JOptionPane.showMessageDialog(null,"Error al crear el reporte"+e);
         }
     }
             
